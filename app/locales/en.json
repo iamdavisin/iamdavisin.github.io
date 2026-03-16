@@ -1,0 +1,97 @@
+{
+    "navbar": {
+        "home": "Home",
+        "about": "About me",
+        "skills": "Skills",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "settings": {
+        "language": "Language",
+        "en": "English",
+        "es": "Spanish",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System",
+        "menu": "Menu"
+    },
+    "home": {
+        "title": "David Pérez",
+        "subtitle": "FullStack Developer"
+    },
+    "footer": {
+        "text": "Made with ❤️ by"
+    },
+    "skills": {
+        "title": "Skills",
+        "hard": "Hard Skills",
+        "frontend": "Front-End",
+        "backend": "Back-End",
+        "soft": "Soft Skills",
+        "tools": "Tools",
+        "teamwork": "Teamwork",
+        "problem-solving": "Problem Solving",
+        "communication": "Communication",
+        "creativity": "Creativity",
+        "goal-oriented": "Goal-Oriented",
+        "collaboration": "Collaboration"
+    },
+    "contact": {
+        "title": "Contact",
+        "subtitle": "Have a project in mind or just want to say hi? Feel free to reach out!",
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "email": "Email",
+        "emailPlaceholder": "you@email.com",
+        "message": "Message",
+        "messagePlaceholder": "Tell me about your project...",
+        "send": "Send message",
+        "socials": "Or find me on"
+    },
+    "about": {
+        "title": "About me",
+        "p1": "I'm a responsible and committed person, with a strong willingness to learn and adapt to new technologies and methodologies.",
+        "p2": "I specialize in Full Stack development with Java and web technologies, which allows me to participate in the entire software development cycle.",
+        "education": "Education",
+        "experience": "Experience",
+        "present": "Present",
+        "edu1_title": "Computer Engineering",
+        "edu1_place": "UOC - Universitat Oberta de Catalunya",
+        "edu1_date": "2025 - Present",
+        "edu2_title": "Web Application Development",
+        "edu2_place": "IES Los Albares",
+        "edu2_date": "2023 - 2024",
+        "edu3_title": "Cross-Platform Application Development",
+        "edu3_place": "IES Los Albares",
+        "edu3_date": "2021 - 2023",
+        "edu4_title": "Microcomputer Systems and Networks",
+        "edu4_place": "IES Los Albares",
+        "edu4_date": "2019 - 2021",
+        "exp1_title": "Software Developer",
+        "exp1_place": "NTT DATA",
+        "exp1_date": "Mar 2024 - Jun 2024",
+        "exp1_desc": "Optimized PL/SQL queries and wrote technical documentation. Technologies: PL/SQL, Oracle.",
+        "exp2_title": "Software Developer",
+        "exp2_place": "MetaEnlace",
+        "exp2_date": "Mar 2023 - Jun 2023",
+        "exp2_desc": "Developed features in Java and Spring Boot, resolved critical bugs. Technologies: Java, Spring Boot."
+    },
+    "projects": {
+        "title": "Projects",
+        "subtitle": "A selection of projects I've been working on recently.",
+        "viewCode": "View code",
+        "viewDemo": "View demo",
+        "viewMore": "View more projects",
+        "allProjectsTitle": "All projects",
+        "allProjectsSubtitle": "All my public repositories, pulled directly from GitHub.",
+        "backHome": "Back to home",
+        "noDescription": "No description available.",
+        "repositories": "repositories",
+        "noRepos": "No repositories found.",
+        "portfolio": {
+            "title": "Personal Portfolio",
+            "desc": "My personal website built with Next.js, Tailwind CSS, and Framer Motion. Responsive design with multi-language support and light/dark theme."
+        }
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "navbar": {
+        "home": "Inicio",
+        "about": "Sobre mí",
+        "skills": "Habilidades",
+        "projects": "Proyectos",
+        "contact": "Contacto"
+    },
+    "settings": {
+        "language": "Idioma",
+        "en": "Inglés",
+        "es": "Español",
+        "theme": "Tema",
+        "light": "Claro",
+        "dark": "Oscuro",
+        "system": "Sistema",
+        "menu": "Menú"
+    },
+    "home": {
+        "title": "David Pérez Miñano",
+        "subtitle": "Desarrollador FullStack"
+    },
+    "footer": {
+        "text": "Creado con ❤️ por"
+    },
+    "skills": {
+        "title": "Habilidades",
+        "hard": "Habilidades técnicas",
+        "frontend": "Front-End",
+        "backend": "Back-End",
+        "soft": "Habilidades blandas",
+        "tools": "Herramientas",
+        "teamwork": "Trabajo en equipo",
+        "problem-solving": "Resolución de problemas",
+        "communication": "Comunicación",
+        "creativity": "Creatividad",
+        "goal-oriented": "Orientado a metas",
+        "collaboration": "Colaboración"
+    },
+    "contact": {
+        "title": "Contacto",
+        "subtitle": "¿Tienes un proyecto en mente o simplemente quieres saludar? ¡No dudes en escribirme!",
+        "name": "Nombre",
+        "namePlaceholder": "Tu nombre",
+        "email": "Correo electrónico",
+        "emailPlaceholder": "tu@email.com",
+        "message": "Mensaje",
+        "messagePlaceholder": "Cuéntame sobre tu proyecto...",
+        "send": "Enviar mensaje",
+        "socials": "O encuéntrame en"
+    },
+    "about": {
+        "title": "Sobre mí",
+        "p1": "Soy una persona responsable y comprometida con mi trabajo, con una fuerte disposición para aprender y adaptarme a nuevas tecnologías y metodologías.",
+        "p2": "Me especializo en desarrollo Full Stack con Java y tecnologías web, lo que me permite participar en todo el ciclo de desarrollo de software.",
+        "education": "Formación",
+        "experience": "Experiencia",
+        "present": "Actual",
+        "edu1_title": "Ingeniería Informática",
+        "edu1_place": "UOC - Universitat Oberta de Catalunya",
+        "edu1_date": "2025 - Actualidad",
+        "edu2_title": "Técnico en Desarrollo de Aplicaciones Web",
+        "edu2_place": "IES Los Albares",
+        "edu2_date": "2023 - 2024",
+        "edu3_title": "Técnico en Desarrollo de Aplicaciones Multiplataforma",
+        "edu3_place": "IES Los Albares",
+        "edu3_date": "2021 - 2023",
+        "edu4_title": "Técnico en Sistemas Microinformáticos y Redes",
+        "edu4_place": "IES Los Albares",
+        "edu4_date": "2019 - 2021",
+        "exp1_title": "Desarrollador de Software",
+        "exp1_place": "NTT DATA",
+        "exp1_date": "Mar 2024 - Jun 2024",
+        "exp1_desc": "Optimicé consultas PL/SQL y redacté documentación técnica. Tecnologías: PL/SQL, Oracle.",
+        "exp2_title": "Desarrollador de Software",
+        "exp2_place": "MetaEnlace",
+        "exp2_date": "Mar 2023 - Jun 2023",
+        "exp2_desc": "Programé funcionalidades en Java y Spring Boot, resolví bugs críticos. Tecnologías: Java, Spring Boot."
+    },
+    "projects": {
+        "title": "Proyectos",
+        "subtitle": "Una selección de proyectos en los que he trabajado recientemente.",
+        "viewCode": "Ver código",
+        "viewDemo": "Ver demo",
+        "viewMore": "Ver más proyectos",
+        "allProjectsTitle": "Todos los proyectos",
+        "allProjectsSubtitle": "Todos mis repositorios públicos, directamente desde GitHub.",
+        "backHome": "Volver al inicio",
+        "noDescription": "Sin descripción disponible.",
+        "repositories": "repositorios",
+        "noRepos": "No se encontraron repositorios.",
+        "portfolio": {
+            "title": "Portfolio Personal",
+            "desc": "Mi sitio web personal construido con Next.js, Tailwind CSS y Framer Motion. Diseño responsive con soporte multiidioma y tema claro/oscuro."
+        }
+    }
+}

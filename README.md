@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <h1 align="center">🚀 David Pérez — Portfolio</h1>
+  <p align="center">Sitio web de portfolio personal construido con tecnologías web modernas.</p>
+</p>
 
-## Getting Started
+<p align="center">
+  <a href="https://github.com/iamdavisin"><img src="https://img.shields.io/badge/GitHub-iamdavisin-181717?style=flat-square&logo=github" alt="GitHub" /></a>
+  <a href="https://linkedin.com/in/davidperezmi"><img src="https://img.shields.io/badge/LinkedIn-davidperezmi-0A66C2?style=flat-square&logo=linkedin" alt="LinkedIn" /></a>
+</p>
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Características
+
+- ⚡ **Ultra rápido** — Construido con Next.js 16 y Turbopack para HMR instantáneo
+- 🎨 **Tema oscuro / claro / sistema** — Cambio de tema fluido a través de `next-themes`
+- 🌍 **Internacionalización (i18n)** — Soporte en español e inglés con un proveedor de idioma personalizado
+- 📱 **Totalmente responsive** — Diseño mobile-first con menú móvil dedicado
+- 🎬 **Animaciones fluidas** — Transiciones de página y micro-interacciones con Framer Motion
+- 🧩 **Arquitectura modular** — Separación limpia entre páginas, componentes y locales
+
+## 🛠️ Stack Tecnológico
+
+| Categoría       | Tecnología                                                                                      |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| **Framework**   | [Next.js 16](https://nextjs.org/) (App Router)                                                  |
+| **Lenguaje**    | [TypeScript 5](https://www.typescriptlang.org/)                                                 |
+| **UI**          | [React 19](https://react.dev/)                                                                  |
+| **Estilos**     | [Tailwind CSS 4](https://tailwindcss.com/)                                                      |
+| **Animaciones** | [Framer Motion](https://www.framer.com/motion/)                                                 |
+| **Iconos**      | [Lucide React](https://lucide.dev/) · [React Icons](https://react-icons.github.io/react-icons) |
+| **Temas**       | [next-themes](https://github.com/pacocoursey/next-themes)                                       |
+| **Linting**     | [ESLint](https://eslint.org/)                                                                   |
+| **Bundler**     | [Turbopack](https://turbo.build/pack)                                                           |
+
+## 📁 Estructura del Proyecto
+
+```
+web/
+├── app/
+│   ├── components/       # Componentes de UI reutilizables
+│   │   ├── Footer.tsx
+│   │   ├── LangSwitcher.tsx
+│   │   ├── LanguageProvider.tsx
+│   │   ├── MobileMenu.tsx
+│   │   ├── Navbar.tsx
+│   │   └── ThemeSwitcher.tsx
+│   ├── locales/           # Archivos de traducción i18n
+│   │   ├── en.json
+│   │   └── es.json
+│   ├── pages/             # Secciones de página
+│   │   ├── About.tsx
+│   │   ├── Contact.tsx
+│   │   ├── Home.tsx
+│   │   ├── Projects.tsx
+│   │   └── Skills.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── not-found.tsx
+│   └── page.tsx
+├── public/
+├── package.json
+├── tsconfig.json
+└── next.config.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Empezar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Requisitos previos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Node.js** ≥ 18
+- **pnpm** (recomendado)
 
-## Learn More
+### Instalación
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Clonar el repositorio
+git clone https://github.com/iamdavisin/portfolio.git
+cd portfolio/web
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Instalar dependencias
+pnpm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Iniciar el servidor de desarrollo
+pnpm dev
+```
 
-## Deploy on Vercel
+La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Compilar para producción
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm build
+pnpm start
+```
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE).
+
+---
+
+<p align="center">Hecho con ❤️ por <strong>David Pérez</strong></p>
