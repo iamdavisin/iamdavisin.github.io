@@ -1,20 +1,10 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { fetchGitHubRepos } from "../lib/github";
 import ProjectsClient from "./ProjectsClient";
-import { type GitHubRepo } from "../lib/github";
 
-export default function ProjectsPage() {
-    const [repos, setRepos] = useState<GitHubRepo[]>([]);
+export const revalidate = 3600; // ISR — revalidar cada hora
 
-    useEffect(() => {
-        fetch("https://api.github.com/users/iamdavisin/repos?sort=updated&per_page=30")
-            .then((res) => res.json())
-            .then((data) => {
-                if (Array.isArray(data)) setRepos(data);
-            })
-            .catch(() => setRepos([]));
-    }, []);
+export default async function ProjectsPage() {
+    const repos = await fetchGitHubRepos();
 
     return <ProjectsClient repos={repos} />;
 }
