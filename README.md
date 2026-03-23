@@ -75,7 +75,7 @@ web/
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/iamdavisin/portfolio.git
+git clone https://github.com/iamdavisin/iamdavisin.github.io
 cd portfolio/web
 
 # Instalar dependencias
@@ -96,7 +96,7 @@ pnpm start
 
 ## 📄 Licencia
 
-Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE).
+Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE.md).
 
 ---
 
