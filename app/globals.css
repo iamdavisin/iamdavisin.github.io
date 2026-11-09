@@ -37,6 +37,27 @@ button:hover {
   }
 }
 
+/* CV: una hoja A4 limpia al imprimir / guardar como PDF */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .cv-sheet {
+    width: 210mm;
+    max-width: none;
+    min-height: 297mm;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
 :focus-visible {
   outline: 2px solid var(--color-blue-500);
   outline-offset: 2px;

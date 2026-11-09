@@ -23,7 +23,8 @@
         "ctaContact": "Get in touch",
         "ctaProjects": "View projects",
         "photoAlt": "Photo of David Pérez",
-        "available": "Open to work"
+        "available": "Open to work",
+        "ctaCv": "View CV"
     },
     "footer": {
         "text": "Made with ❤️ by"
@@ -99,5 +100,14 @@
         "title": "Page not found",
         "desc": "The page you're looking for doesn't exist or has been moved.",
         "back": "Back to home"
+    },
+    "cv": {
+        "title": "Résumé",
+        "download": "Download PDF",
+        "back": "Back to portfolio",
+        "profile": "Profile",
+        "contact": "Contact",
+        "skills": "Skills",
+        "hint": "In the print dialog choose “Save as PDF”."
     }
 }

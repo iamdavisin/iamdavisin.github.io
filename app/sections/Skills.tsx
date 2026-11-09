@@ -1,54 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { FaJava, FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaDocker, FaDatabase, FaAngular, } from "react-icons/fa";
-import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiSpring, SiPostgresql, SiClaude } from "react-icons/si";
-import { SquareTerminal } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
-
-/* ── Tipos ── */
-type HardSkill = { name: string; icon: React.ReactNode; color: string };
-type HardSkillCategory = { titleKey: string; skills: HardSkill[] };
-
-
-/* ── Datos (iconos y colores no necesitan traducción) ── */
-const hardSkillCategories: HardSkillCategory[] = [
-    {
-        titleKey: "skills.frontend",
-        skills: [
-            { name: "React", icon: <FaReact />, color: "#61DAFB" },
-            { name: "Angular", icon: <FaAngular />, color: "#e32626ff" },
-            { name: "Next.js", icon: <SiNextdotjs />, color: "#a0a0a0" },
-            { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
-            { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
-            { name: "Tailwind", icon: <SiTailwindcss />, color: "#06B6D4" },
-            { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
-            { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
-        ],
-    },
-    {
-        titleKey: "skills.backend",
-        skills: [
-            { name: "Java", icon: <FaJava />, color: "#ED8B00" },
-            { name: "Spring", icon: <SiSpring />, color: "#6DB33F" },
-            { name: "PostgreSQL", icon: <SiPostgresql />, color: "#4169E1" },
-            { name: "SQL", icon: <FaDatabase />, color: "#4479A1" },
-        ],
-    },
-    {
-        titleKey: "skills.tools",
-        skills: [
-            { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
-            { name: "Docker", icon: <FaDocker />, color: "#2496ED" },
-        ],
-    },
-    {
-        titleKey: "skills.ai",
-        skills: [
-            { name: "Claude", icon: <SiClaude />, color: "#D97757" },
-            { name: "Claude Code", icon: <SquareTerminal size="1em" />, color: "#D97757" },
-        ],
-    },
-];
+import { skillCategories, type Skill } from "../lib/resume";
 
 /* ── Variantes de animación ── */
 const containerVariants = {
@@ -78,7 +31,7 @@ const sectionVariants = {
 };
 
 /* ── Tarjeta de habilidad ── */
-function SkillCard({ skill }: { skill: HardSkill }) {
+function SkillCard({ skill }: { skill: Skill }) {
 
 
     return (
@@ -128,7 +81,7 @@ export default function Skills() {
                 </motion.h2>
                 {/* Habilidades técnicas */}
                 <div className="space-y-10">
-                    {hardSkillCategories.map((category, idx) => (
+                    {skillCategories.map((category, idx) => (
                         <motion.div
                             key={idx}
                             variants={sectionVariants}

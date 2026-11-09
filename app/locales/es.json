@@ -23,7 +23,8 @@
         "ctaContact": "Contactar",
         "ctaProjects": "Ver proyectos",
         "photoAlt": "Foto de David Pérez",
-        "available": "Disponible para trabajar"
+        "available": "Disponible para trabajar",
+        "ctaCv": "Ver CV"
     },
     "footer": {
         "text": "Creado con ❤️ por"
@@ -99,5 +100,14 @@
         "title": "Página no encontrada",
         "desc": "La página que buscas no existe o ha sido movida.",
         "back": "Volver al inicio"
+    },
+    "cv": {
+        "title": "Currículum",
+        "download": "Descargar PDF",
+        "back": "Volver al portfolio",
+        "profile": "Perfil",
+        "contact": "Contacto",
+        "skills": "Habilidades",
+        "hint": "En el diálogo de impresión elige «Guardar como PDF»."
     }
 }

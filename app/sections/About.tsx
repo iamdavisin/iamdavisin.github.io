@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, Briefcase } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
+import { education, experience } from "../lib/resume";
 
 /* ── Variantes de animación ── */
 const containerVariants = {
@@ -58,18 +59,6 @@ function TimelineItem({
 /* ── Componente principal ── */
 export default function About() {
   const { t } = useTranslation();
-
-  const education = [
-    { titleKey: "about.edu1_title", placeKey: "about.edu1_place", dateKey: "about.edu1_date" },
-    { titleKey: "about.edu2_title", placeKey: "about.edu2_place", dateKey: "about.edu2_date" },
-    { titleKey: "about.edu3_title", placeKey: "about.edu3_place", dateKey: "about.edu3_date" },
-    { titleKey: "about.edu4_title", placeKey: "about.edu4_place", dateKey: "about.edu4_date" },
-  ];
-
-  const experience = [
-    { titleKey: "about.exp1_title", placeKey: "about.exp1_place", dateKey: "about.exp1_date", descKey: "about.exp1_desc" },
-    { titleKey: "about.exp2_title", placeKey: "about.exp2_place", dateKey: "about.exp2_date", descKey: "about.exp2_desc" },
-  ];
 
   return (
     <section
@@ -150,7 +139,7 @@ export default function About() {
                 title={t(item.titleKey)}
                 place={t(item.placeKey)}
                 date={t(item.dateKey)}
-                desc={t(item.descKey)}
+                desc={item.descKey && t(item.descKey)}
                 isLast={idx === experience.length - 1}
               />
             ))}

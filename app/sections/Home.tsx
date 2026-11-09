@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "../components/LanguageProvider";
 import Image from 'next/image';
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { ArrowDown, Mail } from "lucide-react";
+import { ArrowDown, FileText, Mail } from "lucide-react";
+import Link from "next/link";
 
 const profileImages = [
   "/profile.jpg",
@@ -125,6 +126,13 @@ export default function Hero() {
             {t("home.ctaProjects")}
             <ArrowDown size={16} />
           </a>
+          <Link
+            href="/cv"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-(--foreground)/[0.04] border border-(--foreground)/[0.08] hover:border-(--foreground)/[0.15] hover:bg-(--foreground)/[0.08] transition-colors"
+          >
+            <FileText size={16} />
+            {t("home.ctaCv")}
+          </Link>
         </div>
       </motion.div>
     </section>
