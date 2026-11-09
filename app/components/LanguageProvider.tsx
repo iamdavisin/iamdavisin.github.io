@@ -1,9 +1,10 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import es from '../locales/es.json';
-import en from '../locales/en.json';
+import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore, ReactNode } from "react";
+import { useMounted } from "../lib/useMounted";
+import es from "../locales/es.json";
+import en from "../locales/en.json";
 
-type Locale = 'es' | 'en';
+export type Locale = "es" | "en";
 type Translations = typeof es;
 
 interface LanguageContextType {
@@ -15,49 +16,68 @@ interface LanguageContextType {
 const translations: Record<Locale, Translations> = { es, en };
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  // Estado inicial 'es' por defecto para evitar diferencias Servidor/Cliente
-  const [locale, setLocale] = useState<Locale>('es');
-  const [mounted, setMounted] = useState(false);
+export const DEFAULT_LOCALE: Locale = "es";
 
+/* Script que se ejecuta antes de pintar la página: si el visitante eligió inglés,
+   oculta el contenido hasta que React lo traduzca (evita ver un parpadeo en español).
+   El resto de visitas y los buscadores ven el HTML al instante.
+   Si el JS falla, el contenido se muestra igualmente tras 1,5 s. */
+export const langInitScript = `try{var l=localStorage.getItem('lang');if(l&&l!=='${DEFAULT_LOCALE}'){document.documentElement.setAttribute('data-lang-pending','');document.documentElement.lang=l;setTimeout(function(){document.documentElement.removeAttribute('data-lang-pending')},1500)}}catch(e){}`;
+
+/* Idioma guardado en localStorage como "store" externo de React */
+const listeners = new Set<() => void>();
+let memoryLocale: Locale | null = null; // por si localStorage no está disponible
+
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  return () => { listeners.delete(cb); };
+}
+
+function readStoredLocale(): Locale {
+  try {
+    const saved = localStorage.getItem("lang");
+    if (saved === "es" || saved === "en") return saved;
+  } catch { }
+  return memoryLocale ?? DEFAULT_LOCALE;
+}
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  // El HTML estático se genera en el idioma por defecto
+  const locale = useSyncExternalStore(subscribe, readStoredLocale, () => DEFAULT_LOCALE);
+  const ready = useMounted();
+
+  // Mantiene <html lang> sincronizado y muestra el contenido ya traducido
   useEffect(() => {
-    const savedLang = localStorage.getItem('lang') as Locale;
-    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
-      setLocale(savedLang);
+    if (!ready) return;
+    document.documentElement.lang = locale;
+    document.documentElement.removeAttribute("data-lang-pending");
+  }, [locale, ready]);
+
+  const t = useCallback((path: string): string => {
+    let result: unknown = translations[locale];
+    for (const key of path.split(".")) {
+      if (result && typeof result === "object" && key in result) {
+        result = (result as Record<string, unknown>)[key];
+      } else {
+        return path;
+      }
     }
-    setMounted(true);
+    return typeof result === "string" ? result : path;
+  }, [locale]);
+
+  const changeLanguage = useCallback((newLang: Locale) => {
+    try { localStorage.setItem("lang", newLang); } catch { }
+    memoryLocale = newLang;
+    listeners.forEach((l) => l());
   }, []);
 
-  const t = (path: string): string => {
-    const keys = path.split('.');
-    let result: any = translations[locale];
-    for (const key of keys) {
-      if (result?.[key]) result = result[key];
-      else return path;
-    }
-    return result as string;
-  };
+  const value = useMemo(() => ({ locale, t, changeLanguage }), [locale, t, changeLanguage]);
 
-  const changeLanguage = (newLang: Locale) => {
-    setLocale(newLang);
-    localStorage.setItem('lang', newLang);
-  };
-
-  // Usamos useEffect para aplicar la visibilidad al body directamente,
-  // manteniendo la misma estructura del DOM en servidor y cliente.
-  useEffect(() => {
-    document.body.style.visibility = mounted ? 'visible' : 'hidden';
-  }, [mounted]);
-
-  return (
-    <LanguageContext.Provider value={{ locale, t, changeLanguage }}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export const useTranslation = () => {
   const context = useContext(LanguageContext);
-  if (!context) throw new Error('useTranslation debe usarse dentro de LanguageProvider');
+  if (!context) throw new Error("useTranslation debe usarse dentro de LanguageProvider");
   return context;
 };

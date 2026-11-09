@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Home } from "lucide-react";
+import { useTranslation } from "./components/LanguageProvider";
 
 /* ── Componente de esfera flotante ── */
 function FloatingOrb({ size, x, y, delay, duration, color }: {
@@ -102,6 +103,8 @@ function ScanLines() {
 }
 
 export default function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6 bg-(--background) relative overflow-hidden">
 
@@ -161,10 +164,10 @@ export default function NotFound() {
             animate={{ opacity: [1, 0.5, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            Página no encontrada
+            {t("notFound.title")}
           </motion.p>
-          <p className="text-(--foreground)/50 text-sm md:text-base max-w-md">
-            La página que buscas no existe o ha sido movida.
+          <p className="text-(--foreground)/70 text-sm md:text-base max-w-md">
+            {t("notFound.desc")}
           </p>
         </motion.div>
 
@@ -194,7 +197,7 @@ export default function NotFound() {
               transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
             />
             <Home className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
-            <span className="relative z-10">Volver al inicio</span>
+            <span className="relative z-10">{t("notFound.back")}</span>
           </Link>
         </motion.div>
       </div>

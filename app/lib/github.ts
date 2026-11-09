@@ -37,10 +37,22 @@ const GITHUB_USER = "iamdavisin";
 const API_URL = `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100&type=owner`;
 
 export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
-    const res = await fetch(API_URL, {
-        headers: { Accept: "application/vnd.github.v3+json" },
-        next: { revalidate: 3600 }, // ISR — re-fetch every hour
-    });
+    // Se ejecuta en el build (exportación estática). En GitHub Actions se usa
+    // GITHUB_TOKEN para evitar el límite de 60 peticiones/hora sin autenticar.
+    const token = process.env.GITHUB_TOKEN;
+    let res: Response;
+    try {
+        res = await fetch(API_URL, {
+            headers: {
+                Accept: "application/vnd.github+json",
+                ...(token && { Authorization: `Bearer ${token}` }),
+            },
+            cache: "force-cache",
+        });
+    } catch (err) {
+        console.error("GitHub API unreachable:", err);
+        return [];
+    }
 
     if (!res.ok) {
         console.error("GitHub API error:", res.status, res.statusText);

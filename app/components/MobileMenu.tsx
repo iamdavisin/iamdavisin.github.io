@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { usePathname } from "next/navigation";
 import { X, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "./LanguageProvider";
+import { useEscape, useScrollLock } from "../lib/useScrollLock";
+import { useMounted } from "../lib/useMounted";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -14,20 +14,11 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose, items, activeSection }: MobileMenuProps) {
-  const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Bloqueo de scroll
-  useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "unset";
-    return () => { document.body.style.overflow = "unset"; };
-  }, [isOpen]);
+  useScrollLock(isOpen);
+  useEscape(isOpen, onClose);
 
   if (!mounted) return null;
 
@@ -46,6 +37,9 @@ export default function MobileMenu({ isOpen, onClose, items, activeSection }: Mo
 
           {/* Sidebar Deslizable de Izquierda a Derecha */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("settings.menu")}
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
@@ -58,6 +52,7 @@ export default function MobileMenu({ isOpen, onClose, items, activeSection }: Mo
                 <h2 className="text-2xl font-black uppercase tracking-tighter">{t("settings.menu")}</h2>
                 <button
                   onClick={onClose}
+                  aria-label={t("a11y.close")}
                   className="p-2  rounded-full hover:bg-zinc-500/20 transition-colors"
                 >
                   <X size={24} />
@@ -67,25 +62,25 @@ export default function MobileMenu({ isOpen, onClose, items, activeSection }: Mo
               {/* Links */}
               <div className="flex flex-col gap-3 overflow-y-auto grow">
                 {items.map((item) => {
-                  // LÓGICA DE CAMBIO: Comparamos el ID de la sección activa con el href
                   const isActive = activeSection === item.href.replace("#", "");
 
                   return (
                     <a
                       key={item.href}
                       href={item.href}
+                      aria-current={isActive ? "location" : undefined}
                       onClick={(e) => {
                         e.preventDefault();
                         onClose();
                         document.getElementById(item.href.replace("#", ""))?.scrollIntoView({ behavior: "smooth" });
                       }}
-                      className={`flex items-center justify-between p-4 rounded-2xl transition-all ${isActive // <--- CAMBIADO
+                      className={`flex items-center justify-between p-4 rounded-2xl transition-all ${isActive
                         ? "bg-zinc-500/10 border border-(--foreground) font-bold"
                         : "hover:bg-zinc-500/5 border border-transparent opacity-80"
                         }`}
                     >
                       <span className="text-xl">{item.name}</span>
-                      {isActive && <ChevronRight size={20} />} {/* <--- CAMBIADO */}
+                      {isActive && <ChevronRight size={20} />}
                     </a>
                   );
                 })}

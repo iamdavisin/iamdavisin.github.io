@@ -1,22 +1,23 @@
-import Image from "next/image";
-import About from "./pages/About";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
-import Home from "./pages/Home";
+import Home from "./sections/Home";
+import About from "./sections/About";
+import Skills from "./sections/Skills";
+import Projects from "./sections/Projects";
+import Contact from "./sections/Contact";
 import Navbar from "./components/Navbar";
-import Skills from "./pages/Skills";
 import Footer from "./components/Footer";
 
 export default function Page() {
   return (
-    <main className="">
-      <Home />
-      <Navbar />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+    <>
+      <main>
+        <Home />
+        <Navbar />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

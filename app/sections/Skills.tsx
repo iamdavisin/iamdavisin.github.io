@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { FaJava, FaReact, FaHtml5, FaCss3Alt, FaNodeJs, FaGitAlt, FaDocker, FaDatabase, FaAngular, } from "react-icons/fa";
-import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiSpring, SiMongodb, SiPostgresql, } from "react-icons/si";
+import { FaJava, FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaDocker, FaDatabase, FaAngular, } from "react-icons/fa";
+import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiSpring, SiPostgresql, } from "react-icons/si";
 import { Users, Brain, MessageSquare, Lightbulb, Target, Handshake } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
 
@@ -147,7 +147,7 @@ export default function Skills() {
                 {/* Separador de habilidades técnicas */}
                 <div className="flex items-center gap-4 mb-10">
                     <div className="flex-1 h-px bg-(--foreground)/10" />
-                    <span className="text-xs uppercase tracking-widest text-(--foreground)/30 font-medium">{t("skills.hard")}</span>
+                    <span className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">{t("skills.hard")}</span>
                     <div className="flex-1 h-px bg-(--foreground)/10" />
                 </div>
 
@@ -183,7 +183,7 @@ export default function Skills() {
                 {/* Separador */}
                 <div className="flex items-center gap-4 mb-10">
                     <div className="flex-1 h-px bg-(--foreground)/10" />
-                    <span className="text-xs uppercase tracking-widest text-(--foreground)/30 font-medium">{t("skills.soft")}</span>
+                    <span className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">{t("skills.soft")}</span>
                     <div className="flex-1 h-px bg-(--foreground)/10" />
                 </div>
 

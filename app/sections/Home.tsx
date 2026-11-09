@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "../components/LanguageProvider";
 import Image from 'next/image';
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import { ArrowDown, Mail } from "lucide-react";
 
 const profileImages = [
   "/profile.jpg",
@@ -74,7 +75,7 @@ export default function Hero() {
               <div className="relative w-full h-full rounded-full overflow-hidden bg-(--background) z-10">
                 <Image
                   src={profileImages[currentImageIndex]}
-                  alt="Profile slideshow"
+                  alt={t("home.photoAlt")}
                   fill
                   sizes="(max-width: 768px) 160px, 160px"
                   className="object-cover"
@@ -96,6 +97,27 @@ export default function Hero() {
         <p className="text-blue-500 font-bold uppercase tracking-[0.2em] mt-2 text-xs md:text-sm">
           {t("home.subtitle")}
         </p>
+
+        <p className="mt-5 max-w-md text-center text-base text-(--foreground)/70">
+          {t("home.tagline")}
+        </p>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+          >
+            <Mail size={16} />
+            {t("home.ctaContact")}
+          </a>
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-(--foreground)/[0.04] border border-(--foreground)/[0.08] hover:border-(--foreground)/[0.15] hover:bg-(--foreground)/[0.08] transition-colors"
+          >
+            {t("home.ctaProjects")}
+            <ArrowDown size={16} />
+          </a>
+        </div>
       </motion.div>
     </section>
   );

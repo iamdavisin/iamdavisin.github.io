@@ -4,6 +4,9 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  # Recompila cada lunes para refrescar la lista de repositorios de /projects
+  schedule:
+    - cron: "0 6 * * 1"
 
 permissions:
   contents: read
@@ -26,15 +29,15 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: pnpm
 
       - uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

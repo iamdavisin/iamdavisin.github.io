@@ -46,7 +46,7 @@ function TimelineItem({
       <div>
         <p className="text-sm font-bold text-(--foreground)/90">{title}</p>
         <p className="text-sm text-blue-500 font-medium">{place}</p>
-        <p className="text-xs text-(--foreground)/40 mt-0.5">{date}</p>
+        <p className="text-xs text-(--foreground)/60 mt-0.5">{date}</p>
         {desc && (
           <p className="text-sm text-(--foreground)/60 mt-2 leading-relaxed">{desc}</p>
         )}
@@ -116,7 +116,7 @@ export default function About() {
           >
             <div className="flex items-center gap-2 mb-6">
               <GraduationCap size={20} className="text-blue-500" />
-              <h3 className="text-xs uppercase tracking-widest text-(--foreground)/30 font-medium">
+              <h3 className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">
                 {t("about.education")}
               </h3>
             </div>
@@ -140,7 +140,7 @@ export default function About() {
           >
             <div className="flex items-center gap-2 mb-6">
               <Briefcase size={20} className="text-blue-500" />
-              <h3 className="text-xs uppercase tracking-widest text-(--foreground)/30 font-medium">
+              <h3 className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">
                 {t("about.experience")}
               </h3>
             </div>

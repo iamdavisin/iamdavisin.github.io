@@ -18,7 +18,11 @@
     },
     "home": {
         "title": "David Pérez",
-        "subtitle": "FullStack Developer"
+        "subtitle": "FullStack Developer",
+        "tagline": "I build web applications end to end with Java, Spring Boot and React.",
+        "ctaContact": "Get in touch",
+        "ctaProjects": "View projects",
+        "photoAlt": "Photo of David Pérez"
     },
     "footer": {
         "text": "Made with ❤️ by"
@@ -40,13 +44,9 @@
     "contact": {
         "title": "Contact",
         "subtitle": "Have a project in mind or just want to say hi? Feel free to reach out!",
-        "name": "Name",
-        "namePlaceholder": "Your name",
-        "email": "Email",
-        "emailPlaceholder": "you@email.com",
-        "message": "Message",
-        "messagePlaceholder": "Tell me about your project...",
-        "send": "Send message",
+        "send": "Send me an email",
+        "copy": "Copy email",
+        "copied": "Copied!",
         "socials": "Or find me on"
     },
     "about": {
@@ -93,5 +93,17 @@
             "title": "Personal Portfolio",
             "desc": "My personal website built with Next.js, Tailwind CSS, and Framer Motion. Responsive design with multi-language support and light/dark theme."
         }
+    },
+    "a11y": {
+        "openMenu": "Open menu",
+        "close": "Close",
+        "changeTheme": "Change theme",
+        "changeLanguage": "Change language",
+        "nav": "Main navigation"
+    },
+    "notFound": {
+        "title": "Page not found",
+        "desc": "The page you're looking for doesn't exist or has been moved.",
+        "back": "Back to home"
     }
 }

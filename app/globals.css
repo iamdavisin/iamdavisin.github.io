@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Conecta las fuentes de next/font con las utilidades font-sans / font-mono */
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -11,11 +17,13 @@
   --foreground: #ffffff;
 }
 
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Solo se oculta mientras se aplica un idioma distinto al por defecto */
+html[data-lang-pending] body {
   visibility: hidden;
 }
 
@@ -23,8 +31,13 @@ button:hover {
   cursor: pointer;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-@layer utilities {}
+:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+}

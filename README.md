@@ -36,19 +36,23 @@
 ## 📁 Estructura del Proyecto
 
 ```
-web/
+iamdavisin.github.io/
 ├── app/
 │   ├── components/       # Componentes de UI reutilizables
+│   │   ├── BottomSheet.tsx
 │   │   ├── Footer.tsx
 │   │   ├── LangSwitcher.tsx
 │   │   ├── LanguageProvider.tsx
 │   │   ├── MobileMenu.tsx
 │   │   ├── Navbar.tsx
+│   │   ├── Providers.tsx
 │   │   └── ThemeSwitcher.tsx
+│   ├── lib/               # Utilidades (GitHub API, redes, hooks)
 │   ├── locales/           # Archivos de traducción i18n
 │   │   ├── en.json
 │   │   └── es.json
-│   ├── pages/             # Secciones de página
+│   ├── projects/          # Página /projects (repos de GitHub en el build)
+│   ├── sections/          # Secciones de la página principal
 │   │   ├── About.tsx
 │   │   ├── Contact.tsx
 │   │   ├── Home.tsx
@@ -68,7 +72,7 @@ web/
 
 ### Requisitos previos
 
-- **Node.js** ≥ 18
+- **Node.js** ≥ 20
 - **pnpm** (recomendado)
 
 ### Instalación
@@ -76,7 +80,7 @@ web/
 ```bash
 # Clonar el repositorio
 git clone https://github.com/iamdavisin/iamdavisin.github.io
-cd portfolio/web
+cd iamdavisin.github.io
 
 # Instalar dependencias
 pnpm install
@@ -90,9 +94,10 @@ La aplicación estará disponible en [http://localhost:3000](http://localhost:30
 ### Compilar para producción
 
 ```bash
-pnpm build
-pnpm start
+pnpm build   # genera la web estática en ./out
 ```
+
+El despliegue a GitHub Pages es automático al hacer push a `main`.
 
 ## 📄 Licencia
 

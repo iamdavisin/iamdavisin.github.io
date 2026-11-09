@@ -18,7 +18,11 @@
     },
     "home": {
         "title": "David Pérez Miñano",
-        "subtitle": "Desarrollador FullStack"
+        "subtitle": "Desarrollador FullStack",
+        "tagline": "Construyo aplicaciones web de principio a fin con Java, Spring Boot y React.",
+        "ctaContact": "Contactar",
+        "ctaProjects": "Ver proyectos",
+        "photoAlt": "Foto de David Pérez"
     },
     "footer": {
         "text": "Creado con ❤️ por"
@@ -40,13 +44,9 @@
     "contact": {
         "title": "Contacto",
         "subtitle": "¿Tienes un proyecto en mente o simplemente quieres saludar? ¡No dudes en escribirme!",
-        "name": "Nombre",
-        "namePlaceholder": "Tu nombre",
-        "email": "Correo electrónico",
-        "emailPlaceholder": "tu@email.com",
-        "message": "Mensaje",
-        "messagePlaceholder": "Cuéntame sobre tu proyecto...",
-        "send": "Enviar mensaje",
+        "send": "Escríbeme un correo",
+        "copy": "Copiar correo",
+        "copied": "¡Copiado!",
         "socials": "O encuéntrame en"
     },
     "about": {
@@ -93,5 +93,17 @@
             "title": "Portfolio Personal",
             "desc": "Mi sitio web personal construido con Next.js, Tailwind CSS y Framer Motion. Diseño responsive con soporte multiidioma y tema claro/oscuro."
         }
+    },
+    "a11y": {
+        "openMenu": "Abrir menú",
+        "close": "Cerrar",
+        "changeTheme": "Cambiar tema",
+        "changeLanguage": "Cambiar idioma",
+        "nav": "Navegación principal"
+    },
+    "notFound": {
+        "title": "Página no encontrada",
+        "desc": "La página que buscas no existe o ha sido movida.",
+        "back": "Volver al inicio"
     }
 }

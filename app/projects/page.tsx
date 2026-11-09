@@ -1,20 +1,16 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import type { Metadata } from "next";
 import ProjectsClient from "./ProjectsClient";
-import { type GitHubRepo } from "../lib/github";
+import { fetchGitHubRepos } from "../lib/github";
 
-export default function ProjectsPage() {
-    const [repos, setRepos] = useState<GitHubRepo[]>([]);
+export const metadata: Metadata = {
+    title: "Proyectos",
+    description: "Todos los repositorios públicos de David Pérez en GitHub.",
+    alternates: { canonical: "/projects" },
+};
 
-    useEffect(() => {
-        fetch("https://api.github.com/users/iamdavisin/repos?sort=updated&per_page=30")
-            .then((res) => res.json())
-            .then((data) => {
-                if (Array.isArray(data)) setRepos(data);
-            })
-            .catch(() => setRepos([]));
-    }, []);
-
+// Los repositorios se obtienen una vez en el build: sin límites de la API
+// en el navegador, sin estado de carga y con los forks ya filtrados.
+export default async function ProjectsPage() {
+    const repos = await fetchGitHubRepos();
     return <ProjectsClient repos={repos} />;
 }
