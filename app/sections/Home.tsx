@@ -90,7 +90,15 @@ export default function Hero() {
           </AnimatePresence>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-black mt-6 text-center tracking-tighter">
+        <span className="mt-8 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 motion-safe:animate-ping" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+          </span>
+          {t("home.available")}
+        </span>
+
+        <h1 className="text-4xl md:text-5xl font-black mt-4 text-center tracking-tighter">
           {t("home.title")}
         </h1>
 

@@ -22,24 +22,18 @@
         "tagline": "I build web applications end to end with Java, Spring Boot and React.",
         "ctaContact": "Get in touch",
         "ctaProjects": "View projects",
-        "photoAlt": "Photo of David Pérez"
+        "photoAlt": "Photo of David Pérez",
+        "available": "Open to work"
     },
     "footer": {
         "text": "Made with ❤️ by"
     },
     "skills": {
         "title": "Skills",
-        "hard": "Hard Skills",
         "frontend": "Front-End",
         "backend": "Back-End",
-        "soft": "Soft Skills",
         "tools": "Tools",
-        "teamwork": "Teamwork",
-        "problem-solving": "Problem Solving",
-        "communication": "Communication",
-        "creativity": "Creativity",
-        "goal-oriented": "Goal-Oriented",
-        "collaboration": "Collaboration"
+        "ai": "AI"
     },
     "contact": {
         "title": "Contact",

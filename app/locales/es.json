@@ -22,24 +22,18 @@
         "tagline": "Construyo aplicaciones web de principio a fin con Java, Spring Boot y React.",
         "ctaContact": "Contactar",
         "ctaProjects": "Ver proyectos",
-        "photoAlt": "Foto de David Pérez"
+        "photoAlt": "Foto de David Pérez",
+        "available": "Disponible para trabajar"
     },
     "footer": {
         "text": "Creado con ❤️ por"
     },
     "skills": {
         "title": "Habilidades",
-        "hard": "Habilidades técnicas",
         "frontend": "Front-End",
         "backend": "Back-End",
-        "soft": "Habilidades blandas",
         "tools": "Herramientas",
-        "teamwork": "Trabajo en equipo",
-        "problem-solving": "Resolución de problemas",
-        "communication": "Comunicación",
-        "creativity": "Creatividad",
-        "goal-oriented": "Orientado a metas",
-        "collaboration": "Colaboración"
+        "ai": "IA"
     },
     "contact": {
         "title": "Contacto",

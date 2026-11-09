@@ -1,13 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
 import { FaJava, FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaDocker, FaDatabase, FaAngular, } from "react-icons/fa";
-import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiSpring, SiPostgresql, } from "react-icons/si";
-import { Users, Brain, MessageSquare, Lightbulb, Target, Handshake } from "lucide-react";
+import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiSpring, SiPostgresql, SiClaude } from "react-icons/si";
+import { SquareTerminal } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
 
 /* ── Tipos ── */
 type HardSkill = { name: string; icon: React.ReactNode; color: string };
-type SoftSkill = { translationKey: string; icon: React.ReactNode };
 type HardSkillCategory = { titleKey: string; skills: HardSkill[] };
 
 
@@ -42,15 +41,13 @@ const hardSkillCategories: HardSkillCategory[] = [
             { name: "Docker", icon: <FaDocker />, color: "#2496ED" },
         ],
     },
-];
-
-const softSkills: SoftSkill[] = [
-    { translationKey: "skills.teamwork", icon: <Users /> },
-    { translationKey: "skills.problem-solving", icon: <Brain /> },
-    { translationKey: "skills.communication", icon: <MessageSquare /> },
-    { translationKey: "skills.creativity", icon: <Lightbulb /> },
-    { translationKey: "skills.goal-oriented", icon: <Target /> },
-    { translationKey: "skills.collaboration", icon: <Handshake /> },
+    {
+        titleKey: "skills.ai",
+        skills: [
+            { name: "Claude", icon: <SiClaude />, color: "#D97757" },
+            { name: "Claude Code", icon: <SquareTerminal size="1em" />, color: "#D97757" },
+        ],
+    },
 ];
 
 /* ── Variantes de animación ── */
@@ -102,23 +99,9 @@ function SkillCard({ skill }: { skill: HardSkill }) {
             >
                 {skill.icon}
             </span>
-            <span className="text-sm font-medium text-(--foreground)/80 group-hover:text-(--foreground) transition-colors">
+            <span className="text-sm font-medium text-center leading-tight text-(--foreground)/80 group-hover:text-(--foreground) transition-colors">
                 {skill.name}
             </span>
-        </motion.div>
-    );
-}
-
-/* ── Chip de habilidad blanda ── */
-function SoftSkillChip({ skill }: { skill: SoftSkill & { translatedName: string } }) {
-    return (
-        <motion.div
-            variants={cardVariants}
-            whileHover={{ scale: 1.06 }}
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/15 hover:bg-blue-500/15 hover:border-blue-500/25 transition-colors duration-300 cursor-default"
-        >
-            <span className="text-blue-500 text-base">{skill.icon}</span>
-            <span className="text-sm font-medium text-(--foreground)/80">{skill.translatedName}</span>
         </motion.div>
     );
 }
@@ -143,16 +126,8 @@ export default function Skills() {
                 >
                     {t("skills.title")}
                 </motion.h2>
-
-                {/* Separador de habilidades técnicas */}
-                <div className="flex items-center gap-4 mb-10">
-                    <div className="flex-1 h-px bg-(--foreground)/10" />
-                    <span className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">{t("skills.hard")}</span>
-                    <div className="flex-1 h-px bg-(--foreground)/10" />
-                </div>
-
                 {/* Habilidades técnicas */}
-                <div className="space-y-10 mb-16">
+                <div className="space-y-10">
                     {hardSkillCategories.map((category, idx) => (
                         <motion.div
                             key={idx}
@@ -179,26 +154,6 @@ export default function Skills() {
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Separador */}
-                <div className="flex items-center gap-4 mb-10">
-                    <div className="flex-1 h-px bg-(--foreground)/10" />
-                    <span className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">{t("skills.soft")}</span>
-                    <div className="flex-1 h-px bg-(--foreground)/10" />
-                </div>
-
-                {/* Habilidades blandas */}
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-60px" }}
-                    className="flex flex-wrap justify-center gap-3"
-                >
-                    {softSkills.map((skill) => (
-                        <SoftSkillChip key={skill.translationKey} skill={{ ...skill, translatedName: t(skill.translationKey) }} />
-                    ))}
-                </motion.div>
             </div>
         </section>
     );
