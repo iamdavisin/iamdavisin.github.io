@@ -5,7 +5,7 @@ import { ArrowLeft, Download, Globe, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useTranslation } from "../components/LanguageProvider";
 import LangSwitcher from "../components/LangSwitcher";
-import { education, experience, skillCategories, type TimelineEntry } from "../lib/resume";
+import { education, experience, languages, skillCategories, type TimelineEntry } from "../lib/resume";
 import { EMAIL } from "../lib/socials";
 
 /* El CV se dibuja siempre en claro (colores fijos, sin variables del tema)
@@ -110,6 +110,18 @@ export default function CvClient() {
                                             <span className="shrink-0 text-blue-600">{c.icon}</span>
                                             {c.label}
                                         </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+
+                        <section>
+                            <SectionTitle>{t("cv.languages")}</SectionTitle>
+                            <ul className="space-y-1.5">
+                                {languages.map((l) => (
+                                    <li key={l.nameKey} className="flex items-baseline justify-between gap-2 text-[11px]">
+                                        <span className="font-medium text-zinc-800">{t(l.nameKey)}</span>
+                                        <span className="text-zinc-500">{t(l.levelKey)}</span>
                                     </li>
                                 ))}
                             </ul>

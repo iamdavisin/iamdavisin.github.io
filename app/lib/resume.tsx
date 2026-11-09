@@ -60,3 +60,8 @@ export const experience: TimelineEntry[] = [
     { titleKey: "about.exp1_title", placeKey: "about.exp1_place", dateKey: "about.exp1_date", descKey: "about.exp1_desc" },
     { titleKey: "about.exp2_title", placeKey: "about.exp2_place", dateKey: "about.exp2_date", descKey: "about.exp2_desc" },
 ];
+
+export const languages = [
+    { nameKey: "cv.spanish", levelKey: "cv.spanishLevel" },
+    { nameKey: "cv.english", levelKey: "cv.englishLevel" },
+];

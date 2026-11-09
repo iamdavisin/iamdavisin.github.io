@@ -108,6 +108,11 @@
         "profile": "Perfil",
         "contact": "Contacto",
         "skills": "Habilidades",
-        "hint": "En el diálogo de impresión elige «Guardar como PDF»."
+        "hint": "En el diálogo de impresión elige «Guardar como PDF».",
+        "languages": "Idiomas",
+        "spanish": "Español",
+        "spanishLevel": "Nativo",
+        "english": "Inglés",
+        "englishLevel": "Intermedio (B2)"
     }
 }

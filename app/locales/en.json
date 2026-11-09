@@ -108,6 +108,11 @@
         "profile": "Profile",
         "contact": "Contact",
         "skills": "Skills",
-        "hint": "In the print dialog choose “Save as PDF”."
+        "hint": "In the print dialog choose “Save as PDF”.",
+        "languages": "Languages",
+        "spanish": "Spanish",
+        "spanishLevel": "Native",
+        "english": "English",
+        "englishLevel": "Intermediate (B2)"
     }
 }
