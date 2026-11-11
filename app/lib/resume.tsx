@@ -3,7 +3,7 @@
    los iconos y los colores. Cambia algo aquí y se actualizan ambos. */
 import { FaJava, FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaDocker, FaDatabase, FaAngular } from "react-icons/fa";
 import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiSpring, SiPostgresql, SiClaude } from "react-icons/si";
-import { SquareTerminal } from "lucide-react";
+import { VscVscode } from "react-icons/vsc";
 
 export type Skill = { name: string; icon: React.ReactNode; color: string };
 export type SkillCategory = { titleKey: string; skills: Skill[] };
@@ -36,13 +36,8 @@ export const skillCategories: SkillCategory[] = [
         skills: [
             { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
             { name: "Docker", icon: <FaDocker />, color: "#2496ED" },
-        ],
-    },
-    {
-        titleKey: "skills.ai",
-        skills: [
+            { name: "VS Code", icon: <VscVscode />, color: "#007ACC" },
             { name: "Claude", icon: <SiClaude />, color: "#D97757" },
-            { name: "Claude Code", icon: <SquareTerminal size="1em" />, color: "#D97757" },
         ],
     },
 ];
@@ -57,6 +52,7 @@ export const education: TimelineEntry[] = [
 ];
 
 export const experience: TimelineEntry[] = [
+    { titleKey: "about.exp3_title", placeKey: "about.exp3_place", dateKey: "about.exp3_date" },
     { titleKey: "about.exp1_title", placeKey: "about.exp1_place", dateKey: "about.exp1_date", descKey: "about.exp1_desc" },
     { titleKey: "about.exp2_title", placeKey: "about.exp2_place", dateKey: "about.exp2_date", descKey: "about.exp2_desc" },
 ];

@@ -33,8 +33,7 @@
         "title": "Skills",
         "frontend": "Front-End",
         "backend": "Back-End",
-        "tools": "Tools",
-        "ai": "AI"
+        "tools": "Tools"
     },
     "contact": {
         "title": "Contact",
@@ -70,7 +69,10 @@
         "exp2_title": "Software Developer",
         "exp2_place": "MetaEnlace",
         "exp2_date": "Mar 2023 - Jun 2023",
-        "exp2_desc": "Developed features in Java and Spring Boot, resolved critical bugs. Technologies: Java, Spring Boot."
+        "exp2_desc": "Developed features in Java and Spring Boot, resolved critical bugs. Technologies: Java, Spring Boot.",
+        "exp3_title": "IT Support",
+        "exp3_place": "Limcamar",
+        "exp3_date": "Jul 2026 - Present"
     },
     "projects": {
         "title": "Projects",

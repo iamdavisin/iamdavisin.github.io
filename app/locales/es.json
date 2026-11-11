@@ -33,8 +33,7 @@
         "title": "Habilidades",
         "frontend": "Front-End",
         "backend": "Back-End",
-        "tools": "Herramientas",
-        "ai": "IA"
+        "tools": "Herramientas"
     },
     "contact": {
         "title": "Contacto",
@@ -70,7 +69,10 @@
         "exp2_title": "Desarrollador de Software",
         "exp2_place": "MetaEnlace",
         "exp2_date": "Mar 2023 - Jun 2023",
-        "exp2_desc": "Programé funcionalidades en Java y Spring Boot, resolví bugs críticos. Tecnologías: Java, Spring Boot."
+        "exp2_desc": "Programé funcionalidades en Java y Spring Boot, resolví bugs críticos. Tecnologías: Java, Spring Boot.",
+        "exp3_title": "Soporte IT",
+        "exp3_place": "Limcamar",
+        "exp3_date": "Jul 2026 - Actualidad"
     },
     "projects": {
         "title": "Proyectos",
