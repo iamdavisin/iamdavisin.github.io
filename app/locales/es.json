@@ -4,7 +4,8 @@
         "about": "Sobre mí",
         "skills": "Habilidades",
         "projects": "Proyectos",
-        "contact": "Contacto"
+        "contact": "Contacto",
+        "vlog": "Vlog"
     },
     "settings": {
         "language": "Idioma",
@@ -123,5 +124,18 @@
         "spanishLevel": "Nativo",
         "english": "Inglés",
         "englishLevel": "Intermedio (B2)"
+    },
+    "vlog": {
+        "title": "Fuera del código",
+        "subtitle": "Un vistazo a lo que hago cuando no estoy programando.",
+        "all": "Todo",
+        "hint": "Arrastra para ver más · Toca para abrir",
+        "placeholder": "Tu foto o vídeo aquí",
+        "prev": "Anterior",
+        "next": "Siguiente",
+        "pause": "Pausar",
+        "play": "Reanudar",
+        "mute": "Silenciar",
+        "unmute": "Activar sonido"
     }
 }

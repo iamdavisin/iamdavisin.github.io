@@ -4,7 +4,8 @@
         "about": "About me",
         "skills": "Skills",
         "projects": "Projects",
-        "contact": "Contact"
+        "contact": "Contact",
+        "vlog": "Vlog"
     },
     "settings": {
         "language": "Language",
@@ -123,5 +124,18 @@
         "spanishLevel": "Native",
         "english": "English",
         "englishLevel": "Intermediate (B2)"
+    },
+    "vlog": {
+        "title": "Beyond the code",
+        "subtitle": "A glimpse of what I do when I'm not coding.",
+        "all": "All",
+        "hint": "Drag to see more · Tap to open",
+        "placeholder": "Your photo or video here",
+        "prev": "Previous",
+        "next": "Next",
+        "pause": "Pause",
+        "play": "Resume",
+        "mute": "Mute",
+        "unmute": "Unmute"
     }
 }

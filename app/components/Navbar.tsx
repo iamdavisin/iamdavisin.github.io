@@ -30,6 +30,7 @@ export default function Navbar() {
     { name: t("navbar.about"), href: "#about" },
     { name: t("navbar.skills"), href: "#skills" },
     { name: t("navbar.projects"), href: "#projects" },
+    { name: t("navbar.vlog"), href: "#vlog" },
     { name: t("navbar.contact"), href: "#contact" },
   ], [t]);
 
