@@ -58,6 +58,40 @@ button:hover {
   }
 }
 
+/* ── Fondo animado ── */
+.bg-dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@keyframes aurora-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(120px, 80px) scale(1.15); }
+}
+@keyframes aurora-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-100px, 120px) scale(0.9); }
+}
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aurora-a { animation: aurora-a 18s ease-in-out infinite; }
+  .aurora-b { animation: aurora-b 22s ease-in-out infinite; }
+  .marquee-track { animation: marquee 40s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
+
+/* Las secciones dejan ver el fondo animado */
+body {
+  background: var(--background);
+  isolation: isolate;
+}
+
 :focus-visible {
   outline: 2px solid var(--color-blue-500);
   outline-offset: 2px;

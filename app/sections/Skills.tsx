@@ -1,58 +1,34 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useTranslation } from "../components/LanguageProvider";
 import { skillCategories, type Skill } from "../lib/resume";
+import { SectionHeading, SpotlightCard, blurUp, staggerBox } from "../components/motion";
 
-/* ── Variantes de animación ── */
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: { staggerChildren: 0.06 },
-    },
+const tile: Variants = {
+    hidden: { opacity: 0, scale: 0.7, filter: "blur(6px)" },
+    show: { opacity: 1, scale: 1, filter: "blur(0px)", transition: { type: "spring", stiffness: 300, damping: 20 } },
 };
 
-const cardVariants = {
-    hidden: { opacity: 0, y: 24, scale: 0.95 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { duration: 0.4, ease: "easeOut" as const },
-    },
-};
-
-const sectionVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: "easeOut" as const },
-    },
-};
-
-/* ── Tarjeta de habilidad ── */
-function SkillCard({ skill }: { skill: Skill }) {
-
-
+/* ── Icono de tecnología: se ilumina con su propio color ── */
+function SkillTile({ skill }: { skill: Skill }) {
     return (
         <motion.div
-            variants={cardVariants}
-            whileHover={{ y: -4, scale: 1.04 }}
-            className="group relative flex flex-col items-center gap-3 p-5 rounded-2xl bg-(--foreground)/[0.03] border border-(--foreground)/[0.06] hover:border-(--foreground)/[0.12] hover:bg-(--foreground)/[0.06] transition-colors duration-300 cursor-default"
+            variants={tile}
+            whileHover={{ y: -4 }}
+            className="group/tile relative flex flex-col items-center gap-2 rounded-xl p-3 cursor-default"
         >
-            {/* Brillo al pasar el ratón */}
-            <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"
-                style={{ background: `${skill.color}15` }}
-            />
-
             <span
-                className="text-3xl transition-transform duration-300 group-hover:scale-110"
-                style={{ color: skill.color }}
+                aria-hidden
+                className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover/tile:opacity-100"
+                style={{ background: `radial-gradient(circle at 50% 35%, ${skill.color}26, transparent 70%)` }}
+            />
+            <span
+                className="relative text-3xl transition-transform duration-300 group-hover/tile:scale-110 group-hover/tile:-rotate-6"
+                style={{ color: skill.color, filter: `drop-shadow(0 0 0 ${skill.color})` }}
             >
                 {skill.icon}
             </span>
-            <span className="text-sm font-medium text-center leading-tight text-(--foreground)/80 group-hover:text-(--foreground) transition-colors">
+            <span className="relative text-xs font-medium text-center leading-tight text-(--foreground)/75 group-hover/tile:text-(--foreground) transition-colors">
                 {skill.name}
             </span>
         </motion.div>
@@ -64,49 +40,40 @@ export default function Skills() {
     const { t } = useTranslation();
 
     return (
-        <section
-            id="skills"
-            className="min-h-screen py-20 px-6 flex flex-col items-center justify-center scroll-mt-8"
-        >
-            <div className="max-w-4xl w-full">
-                {/* Título */}
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.5 }}
-                    className="text-4xl font-bold mb-12 text-center"
-                >
-                    {t("skills.title")}
-                </motion.h2>
-                {/* Habilidades técnicas */}
-                <div className="space-y-10">
-                    {skillCategories.map((category, idx) => (
-                        <motion.div
-                            key={idx}
-                            variants={sectionVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-80px" }}
-                        >
-                            <h3 className="text-lg font-semibold mb-4 text-blue-500 tracking-wide uppercase text-xs">
-                                {t(category.titleKey)}
-                            </h3>
+        <section id="skills" className="min-h-screen py-24 px-6 flex flex-col items-center justify-center scroll-mt-8">
+            <div className="max-w-5xl w-full">
+                <SectionHeading index="02" title={t("skills.title")} />
 
-                            <motion.div
-                                variants={containerVariants}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, margin: "-60px" }}
-                                className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3"
-                            >
-                                {category.skills.map((skill) => (
-                                    <SkillCard key={skill.name} skill={skill} />
-                                ))}
+                <motion.div
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, margin: "-80px" }}
+                    variants={staggerBox(0.12)}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                >
+                    {skillCategories.map((category) => {
+                        // La categoría más grande ocupa todo el ancho (diseño "bento")
+                        const wide = category.skills.length > 5;
+                        return (
+                            <motion.div key={category.titleKey} variants={blurUp} className={wide ? "md:col-span-2" : ""}>
+                                <SpotlightCard className="h-full p-6">
+                                    <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                        {t(category.titleKey)}
+                                    </h3>
+                                    <motion.div
+                                        variants={staggerBox(0.05, 0.15)}
+                                        className={`grid gap-1 ${wide ? "grid-cols-4 sm:grid-cols-8" : "grid-cols-4"}`}
+                                    >
+                                        {category.skills.map((skill) => (
+                                            <SkillTile key={skill.name} skill={skill} />
+                                        ))}
+                                    </motion.div>
+                                </SpotlightCard>
                             </motion.div>
-                        </motion.div>
-                    ))}
-                </div>
+                        );
+                    })}
+                </motion.div>
             </div>
         </section>
     );

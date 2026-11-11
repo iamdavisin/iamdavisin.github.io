@@ -9,6 +9,7 @@ import {
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
 import Link from "next/link";
+import { Magnetic, Reveal, SectionHeading, SpotlightCard, blurUp, staggerBox } from "../components/motion";
 
 /* ── Tipos ── */
 type Project = {
@@ -34,34 +35,13 @@ const projects: Project[] = [
   },
 ];
 
-/* ── Variantes de animación ── */
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
 
 /* ── Tarjeta de proyecto ── */
 function ProjectCard({ project, t }: { project: Project; t: (key: string) => string }) {
   return (
-    <motion.div
-      variants={cardVariants}
-      whileHover={{ y: -6 }}
-      className="group relative flex flex-col p-6 rounded-2xl bg-(--foreground)/[0.03] border border-(--foreground)/[0.06] hover:border-(--foreground)/[0.12] hover:bg-(--foreground)/[0.05] transition-all duration-300"
-    >
-      {/* Brillo */}
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl -z-10 bg-blue-500/5" />
+    <motion.div variants={blurUp} whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="w-full md:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)]">
+    <SpotlightCard className="h-full">
+    <div className="flex h-full flex-col p-6">
 
       {/* Título */}
       <h3 className="text-lg font-bold mb-2 text-(--foreground)/90 group-hover:text-(--foreground) transition-colors">
@@ -113,6 +93,8 @@ function ProjectCard({ project, t }: { project: Project; t: (key: string) => str
           </a>
         )}
       </div>
+    </div>
+    </SpotlightCard>
     </motion.div>
   );
 }
@@ -124,38 +106,18 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-20 px-6 flex flex-col items-center justify-center scroll-mt-8"
+      className="min-h-screen py-24 px-6 flex flex-col items-center justify-center scroll-mt-8"
     >
       <div className="max-w-4xl w-full">
-        {/* Título */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl font-bold mb-4 text-center"
-        >
-          {t("projects.title")}
-        </motion.h2>
-
-        {/* Subtítulo */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-center text-(--foreground)/60 mb-12"
-        >
-          {t("projects.subtitle")}
-        </motion.p>
+        <SectionHeading index="03" title={t("projects.title")} subtitle={t("projects.subtitle")} />
 
         {/* Cuadrícula de proyectos */}
         <motion.div
-          variants={containerVariants}
+          variants={staggerBox(0.12)}
           initial="hidden"
-          whileInView="visible"
+          whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="flex flex-wrap justify-center gap-5"
         >
           {projects.map((project) => (
             <ProjectCard key={project.titleKey} project={project} t={t} />
@@ -163,21 +125,17 @@ export default function Projects() {
         </motion.div>
 
         {/* Ver más */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="flex justify-center mt-10"
-        >
+        <Reveal delay={0.2} className="flex justify-center mt-10">
+          <Magnetic>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-(--foreground)/[0.04] border border-(--foreground)/[0.08] hover:border-(--foreground)/[0.15] hover:bg-(--foreground)/[0.08] transition-all duration-300"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-(--background)/60 backdrop-blur border border-(--foreground)/[0.1] hover:border-(--foreground)/[0.25] transition-colors duration-300"
           >
             {t("projects.viewMore")}
-            <ArrowRight size={16} />
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </Link>
-        </motion.div>
+          </Magnetic>
+        </Reveal>
       </div>
     </section>
   );

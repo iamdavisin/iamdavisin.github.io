@@ -1,58 +1,67 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { GraduationCap, Briefcase } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
-import { education, experience } from "../lib/resume";
+import { education, experience, type TimelineEntry } from "../lib/resume";
+import { Reveal, SectionHeading, blurUp, staggerBox } from "../components/motion";
 
-/* ── Variantes de animación ── */
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-};
-
-/* ── Elemento del timeline ── */
-function TimelineItem({
+/* ── Línea de tiempo que se "dibuja" según avanza el scroll ── */
+function Timeline({
+  icon,
   title,
-  place,
-  date,
-  desc,
-  isLast,
+  items,
+  t,
 }: {
+  icon: React.ReactNode;
   title: string;
-  place: string;
-  date: string;
-  desc?: string;
-  isLast?: boolean;
+  items: TimelineEntry[];
+  t: (k: string) => string;
 }) {
-  return (
-    <motion.div variants={itemVariants} className="relative pl-8 pb-8 group">
-      {/* Línea vertical */}
-      {!isLast && (
-        <div className="absolute left-[7px] top-3 bottom-0 w-px bg-(--foreground)/10" />
-      )}
-      {/* Punto */}
-      <div className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-blue-500 bg-(--background) group-hover:bg-blue-500 transition-colors duration-300" />
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 80%", "end 60%"] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
-      <div>
-        <p className="text-sm font-bold text-(--foreground)/90">{title}</p>
-        <p className="text-sm text-blue-500 font-medium">{place}</p>
-        <p className="text-xs text-(--foreground)/60 mt-0.5">{date}</p>
-        {desc && (
-          <p className="text-sm text-(--foreground)/60 mt-2 leading-relaxed">{desc}</p>
-        )}
-      </div>
-    </motion.div>
+  return (
+    <div>
+      <Reveal className="flex items-center gap-2 mb-6">
+        <span className="grid h-8 w-8 place-items-center rounded-lg bg-blue-500/10 text-blue-500">{icon}</span>
+        <h3 className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">{title}</h3>
+      </Reveal>
+
+      <motion.div
+        ref={ref}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={staggerBox(0.12)}
+        className="relative"
+      >
+        {/* Carril y trazo animado */}
+        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-(--foreground)/10" />
+        <motion.div
+          style={{ scaleY }}
+          className="absolute left-[7px] top-2 bottom-2 w-px origin-top bg-linear-to-b from-blue-500 via-cyan-400 to-blue-500"
+        />
+
+        {items.map((item) => (
+          <motion.div key={item.titleKey + item.placeKey} variants={blurUp} className="group relative pl-8 pb-8 last:pb-0">
+            <motion.span
+              variants={{ hidden: { scale: 0 }, show: { scale: 1, transition: { type: "spring", stiffness: 400, damping: 18 } } }}
+              className="absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border-2 border-blue-500 bg-(--background) transition-colors duration-300 group-hover:bg-blue-500 group-hover:shadow-[0_0_12px] group-hover:shadow-blue-500/60"
+            />
+            <div className="transition-transform duration-300 group-hover:translate-x-1">
+              <p className="text-sm font-bold text-(--foreground)/90">{t(item.titleKey)}</p>
+              <p className="text-sm text-blue-500 font-medium">{t(item.placeKey)}</p>
+              <p className="text-xs text-(--foreground)/60 mt-0.5 font-mono">{t(item.dateKey)}</p>
+              {item.descKey && (
+                <p className="text-sm text-(--foreground)/70 mt-2 leading-relaxed">{t(item.descKey)}</p>
+              )}
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   );
 }
 
@@ -61,89 +70,29 @@ export default function About() {
   const { t } = useTranslation();
 
   return (
-    <section
-      id="about"
-      className="min-h-screen py-20 px-6 flex flex-col items-center justify-center scroll-mt-8"
-    >
+    <section id="about" className="min-h-screen py-24 px-6 flex flex-col items-center justify-center scroll-mt-8">
       <div className="max-w-3xl w-full">
-        {/* Título */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl font-bold mb-12 text-center"
-        >
-          {t("about.title")}
-        </motion.h2>
+        <SectionHeading index="01" title={t("about.title")} />
 
         {/* Biografía */}
         <motion.div
-          variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
+          whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="space-y-4 mb-16"
+          variants={staggerBox(0.15)}
+          className="space-y-4 mb-16 text-center md:text-left"
         >
-          <motion.p variants={itemVariants} className="text-base leading-relaxed text-(--foreground)/70">
+          <motion.p variants={blurUp} className="text-lg leading-relaxed text-(--foreground)/80">
             {t("about.p1")}
           </motion.p>
-          <motion.p variants={itemVariants} className="text-base leading-relaxed text-(--foreground)/70">
+          <motion.p variants={blurUp} className="text-base leading-relaxed text-(--foreground)/70">
             {t("about.p2")}
           </motion.p>
         </motion.div>
 
-        {/* Diseño a dos columnas para Educación y Experiencia */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-
-          {/* Educación */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-          >
-            <div className="flex items-center gap-2 mb-6">
-              <GraduationCap size={20} className="text-blue-500" />
-              <h3 className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">
-                {t("about.education")}
-              </h3>
-            </div>
-            {education.map((item, idx) => (
-              <TimelineItem
-                key={item.titleKey}
-                title={t(item.titleKey)}
-                place={t(item.placeKey)}
-                date={t(item.dateKey)}
-                isLast={idx === education.length - 1}
-              />
-            ))}
-          </motion.div>
-
-          {/* Experiencia */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-          >
-            <div className="flex items-center gap-2 mb-6">
-              <Briefcase size={20} className="text-blue-500" />
-              <h3 className="text-xs uppercase tracking-widest text-(--foreground)/60 font-medium">
-                {t("about.experience")}
-              </h3>
-            </div>
-            {experience.map((item, idx) => (
-              <TimelineItem
-                key={item.titleKey + idx}
-                title={t(item.titleKey)}
-                place={t(item.placeKey)}
-                date={t(item.dateKey)}
-                desc={item.descKey && t(item.descKey)}
-                isLast={idx === experience.length - 1}
-              />
-            ))}
-          </motion.div>
+          <Timeline icon={<GraduationCap size={18} />} title={t("about.education")} items={education} t={t} />
+          <Timeline icon={<Briefcase size={18} />} title={t("about.experience")} items={experience} t={t} />
         </div>
       </div>
     </section>

@@ -1,140 +1,203 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useTranslation } from "../components/LanguageProvider";
-import Image from 'next/image';
-import { motion, AnimatePresence, Variants } from "framer-motion";
-import { ArrowDown, FileText, Mail } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence, useScroll, useTransform, type Variants } from "framer-motion";
+import { ArrowDown, FileText, Mail } from "lucide-react";
+import { useTranslation } from "../components/LanguageProvider";
+import { EASE, Magnetic, blurUp, staggerBox } from "../components/motion";
+import { skillCategories } from "../lib/resume";
 
-const profileImages = [
-  "/profile.jpg",
-  "/profile2.png",
-];
+const profileImages = ["/profile.jpg", "/profile2.png"];
 
-/* ── Variantes de giro sólido ── */
-const solidFlipVariants: Variants = {
-  enter: { rotateY: -180 },
-  center: {
-    rotateY: 0,
-    zIndex: 1,
-    transition: { duration: 0.8, ease: "easeInOut" }
-  },
-  exit: {
-    rotateY: 180,
-    zIndex: 0,
-    transition: { duration: 0.8, ease: "easeInOut" }
-  },
+/* Giro 3D entre las dos fotos */
+const flip: Variants = {
+  enter: { rotateY: -180, opacity: 0 },
+  center: { rotateY: 0, opacity: 1, zIndex: 1, transition: { duration: 0.9, ease: EASE } },
+  exit: { rotateY: 180, opacity: 0, zIndex: 0, transition: { duration: 0.9, ease: EASE } },
 };
+
+/* Nombre letra a letra */
+function LetterReveal({ text }: { text: string }) {
+  return (
+    <motion.h1
+      key={text}
+      aria-label={text}
+      initial="hidden"
+      animate="show"
+      variants={staggerBox(0.035, 0.35)}
+      className="mt-5 text-center text-[2.6rem] sm:text-6xl md:text-7xl font-black tracking-tighter leading-[1.05]"
+    >
+      {text.split(" ").map((word, wi) => (
+        <span key={wi} aria-hidden className="inline-block whitespace-nowrap">
+          {word.split("").map((ch, ci) => (
+            <motion.span
+              key={ci}
+              className="inline-block bg-linear-to-b from-(--foreground) to-(--foreground)/60 bg-clip-text text-transparent"
+              variants={{
+                hidden: { opacity: 0, y: "0.5em", rotateX: -70, filter: "blur(6px)" },
+                show: { opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
+              }}
+            >
+              {ch}
+            </motion.span>
+          ))}
+          {wi < text.split(" ").length - 1 && <span className="inline-block">&nbsp;</span>}
+        </span>
+      ))}
+    </motion.h1>
+  );
+}
+
+/* Cinta infinita con las tecnologías */
+function TechMarquee() {
+  const skills = skillCategories.flatMap((c) => c.skills);
+  const row = (hidden: boolean) => (
+    <div className="flex shrink-0 items-center gap-10 pr-10" aria-hidden={hidden}>
+      {skills.map((s) => (
+        <span key={s.name} className="inline-flex items-center gap-2 text-sm font-medium text-(--foreground)/60 whitespace-nowrap">
+          <span className="text-xl" style={{ color: s.color }}>{s.icon}</span>
+          {s.name}
+        </span>
+      ))}
+    </div>
+  );
+  return (
+    <div className="marquee relative mt-16 w-full max-w-4xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+      <div className="marquee-track flex w-max">
+        {row(false)}
+        {row(true)}
+      </div>
+    </div>
+  );
+}
 
 export default function Hero() {
   const { t } = useTranslation();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [current, setCurrent] = useState(0);
+  const ref = useRef<HTMLElement>(null);
+
+  // Parallax: el hero se aleja y se desvanece al hacer scroll
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === profileImages.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 4000);
+    const timer = setInterval(() => setCurrent((i) => (i + 1) % profileImages.length), 4500);
     return () => clearInterval(timer);
   }, []);
 
+  const btnSecondary =
+    "inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-(--background)/60 backdrop-blur border border-(--foreground)/[0.1] hover:border-(--foreground)/[0.25] transition-colors";
+
   return (
-    <section id="home" className="w-full pt-40 pb-20 flex flex-col items-center justify-center bg-(--background) px-6 scroll-mt-40">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col items-center"
-      >
-        {/* Contenedor con perspectiva 3D */}
-        <div
-          // Contenedor sin rounded-full ni overflow para que el brillo no se corte
+    <section ref={ref} id="home" className="relative w-full min-h-[92vh] pt-32 pb-16 flex flex-col items-center justify-center px-6 scroll-mt-40">
+      <motion.div style={{ y, opacity, scale }} className="flex w-full max-w-4xl flex-col items-center">
+        {/* Foto con anillo de degradado giratorio */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 160, damping: 18 }}
           className="relative w-40 h-40"
           style={{ perspective: "1200px" }}
         >
-          {/* Animación de flip entre imágenes */}
-
+          <span aria-hidden className="absolute -inset-[4px] rounded-full bg-[conic-gradient(from_0deg,#3b82f6,#22d3ee,#a78bfa,#3b82f6)] motion-safe:animate-[spin_8s_linear_infinite]" />
+          <span aria-hidden className="absolute -inset-6 rounded-full bg-blue-500/25 blur-2xl" />
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.div
-              key={currentImageIndex}
-              variants={solidFlipVariants}
+              key={current}
+              variants={flip}
               initial="enter"
               animate="center"
               exit="exit"
-              style={{
-                backfaceVisibility: "hidden",
-                transformStyle: "preserve-3d"
-              }}
-              // Contenedor de agrupación para girar todo el conjunto
-              className="absolute inset-0 w-full h-full"
+              style={{ backfaceVisibility: "hidden", transformStyle: "preserve-3d" }}
+              className="absolute inset-0"
             >
-              {/* Capa trasera: brillo azul (gira junto con la imagen) */}
-              <div className="absolute -inset-2 bg-linear-to-r from-blue-500/60 to-cyan-500/60 rounded-full blur-md z-0"></div>
-
-              {/* Capa media: recorte circular de la imagen */}
-              <div className="relative w-full h-full rounded-full overflow-hidden bg-(--background) z-10">
-                <Image
-                  src={profileImages[currentImageIndex]}
-                  alt={t("home.photoAlt")}
-                  fill
-                  sizes="(max-width: 768px) 160px, 160px"
-                  className="object-cover"
-                  priority
-                />
+              <div className="relative w-full h-full rounded-full overflow-hidden ring-[3px] ring-(--background)">
+                <Image src={profileImages[current]} alt={t("home.photoAlt")} fill sizes="160px" className="object-cover" priority />
               </div>
-
-              {/* Capa frontal: marco/borde */}
-              <div className="absolute inset-0 rounded-full border-2 border-zinc-500/20 shadow-xl z-20 pointer-events-none"></div>
-
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
 
-        <span className="mt-8 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400">
+        {/* Disponible */}
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.6, ease: EASE }}
+          className="mt-8 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400 backdrop-blur"
+        >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 motion-safe:animate-ping" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
           </span>
           {t("home.available")}
-        </span>
+        </motion.span>
 
-        <h1 className="text-4xl md:text-5xl font-black mt-4 text-center tracking-tighter">
-          {t("home.title")}
-        </h1>
+        <LetterReveal text={t("home.title")} />
 
-        <p className="text-blue-500 font-bold uppercase tracking-[0.2em] mt-2 text-xs md:text-sm">
-          {t("home.subtitle")}
-        </p>
+        <motion.div initial="hidden" animate="show" variants={staggerBox(0.12, 0.9)} className="flex flex-col items-center">
+          <motion.p variants={blurUp} className="mt-4 text-xs md:text-sm font-bold uppercase tracking-[0.3em] bg-linear-to-r from-blue-500 via-cyan-400 to-blue-500 bg-[length:200%_auto] bg-clip-text text-transparent motion-safe:animate-[shine_4s_linear_infinite]">
+            {t("home.subtitle")}
+          </motion.p>
 
-        <p className="mt-5 max-w-md text-center text-base text-(--foreground)/70">
-          {t("home.tagline")}
-        </p>
+          <motion.p variants={blurUp} className="mt-5 max-w-md text-center text-base md:text-lg text-(--foreground)/70">
+            {t("home.tagline")}
+          </motion.p>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-          >
-            <Mail size={16} />
-            {t("home.ctaContact")}
-          </a>
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-(--foreground)/[0.04] border border-(--foreground)/[0.08] hover:border-(--foreground)/[0.15] hover:bg-(--foreground)/[0.08] transition-colors"
-          >
-            {t("home.ctaProjects")}
-            <ArrowDown size={16} />
-          </a>
-          <Link
-            href="/cv"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium bg-(--foreground)/[0.04] border border-(--foreground)/[0.08] hover:border-(--foreground)/[0.15] hover:bg-(--foreground)/[0.08] transition-colors"
-          >
-            <FileText size={16} />
-            {t("home.ctaCv")}
-          </Link>
-        </div>
+          <motion.div variants={blurUp} className="mt-9 flex flex-wrap justify-center gap-3">
+            <Magnetic>
+              <a
+                href="#contact"
+                className="group relative inline-flex items-center gap-2 overflow-hidden px-6 py-3 rounded-full text-sm font-medium text-white bg-blue-600 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 transition-shadow"
+              >
+                <span aria-hidden className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                <Mail size={16} />
+                {t("home.ctaContact")}
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="#projects" className={btnSecondary}>
+                {t("home.ctaProjects")}
+                <ArrowDown size={16} />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <Link href="/cv" className={btnSecondary}>
+                <FileText size={16} />
+                {t("home.ctaCv")}
+              </Link>
+            </Magnetic>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 1 }}
+          className="flex w-full justify-center"
+        >
+          <TechMarquee />
+        </motion.div>
       </motion.div>
+
+      {/* Indicador de scroll */}
+      <motion.a
+        href="#about"
+        aria-hidden
+        tabIndex={-1}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+        className="absolute bottom-4 hidden md:flex h-9 w-5 justify-center rounded-full border-2 border-(--foreground)/25 pt-1.5"
+      >
+        <motion.span
+          animate={{ y: [0, 10, 0], opacity: [1, 0.2, 1] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="h-1.5 w-1 rounded-full bg-(--foreground)/60"
+        />
+      </motion.a>
     </section>
   );
 }
