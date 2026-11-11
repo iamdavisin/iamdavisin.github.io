@@ -27,7 +27,9 @@
         "ctaCv": "View CV"
     },
     "footer": {
-        "text": "Made with ❤️ by"
+        "text": "Made with ❤️ by",
+        "built": "Built with Next.js, Tailwind and Framer Motion",
+        "rights": "All rights reserved"
     },
     "skills": {
         "title": "Skills",
@@ -72,7 +74,10 @@
         "exp2_desc": "Developed features in Java and Spring Boot, resolved critical bugs. Technologies: Java, Spring Boot.",
         "exp3_title": "IT Support",
         "exp3_place": "Limcamar",
-        "exp3_date": "Jul 2026 - Present"
+        "exp3_date": "Jul 2026 - Present",
+        "statTech": "Technologies",
+        "statEdu": "Degrees",
+        "statExp": "Experiences"
     },
     "projects": {
         "title": "Projects",
@@ -96,7 +101,9 @@
         "close": "Close",
         "changeTheme": "Change theme",
         "changeLanguage": "Change language",
-        "nav": "Main navigation"
+        "nav": "Main navigation",
+        "backToTop": "Back to top",
+        "skip": "Skip to content"
     },
     "notFound": {
         "title": "Page not found",

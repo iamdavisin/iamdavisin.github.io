@@ -65,6 +65,12 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: langInitScript }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+        >
+          Saltar al contenido
+        </a>
         <Providers>
           <Background />
           {children}

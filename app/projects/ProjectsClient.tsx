@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import { ArrowLeft, Star, Code2 } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
 import Link from "next/link";
+import { BackToTop, SpotlightCard } from "../components/motion";
 import {
     type GitHubRepo,
     languageColors,
@@ -70,22 +71,14 @@ function RepoCard({
         : null;
 
     return (
-        <motion.a
+        <motion.div variants={cardVariants} whileHover={{ y: -6 }} className="h-full">
+        <SpotlightCard tilt={5} className="h-full">
+        <a
             href={repo.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            variants={cardVariants}
-            whileHover={{ y: -6 }}
-            className="group relative flex flex-col p-6 rounded-2xl
-                bg-(--foreground)/[0.03] border border-(--foreground)/[0.06]
-                hover:border-(--foreground)/[0.12] hover:bg-(--foreground)/[0.05]
-                transition-all duration-300 cursor-pointer"
+            className="flex h-full flex-col p-6 cursor-pointer"
         >
-            {/* Brillo */}
-            <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
-                transition-opacity duration-500 blur-2xl -z-10 bg-blue-500/5"
-            />
 
             {/* Cabecera: icono + nombre */}
             <div className="flex items-start gap-3 mb-3">
@@ -122,7 +115,9 @@ function RepoCard({
                 {/* La fecha relativa cambia entre el build y la visita */}
                 <span className="ml-auto" suppressHydrationWarning>{timeAgo(repo.updated_at, locale)}</span>
             </div>
-        </motion.a>
+        </a>
+        </SpotlightCard>
+        </motion.div>
     );
 }
 
@@ -213,6 +208,7 @@ export default function ProjectsClient({ repos }: { repos: GitHubRepo[] }) {
                     </motion.p>
                 )}
             </div>
+            <BackToTop label={t("a11y.backToTop")} />
         </main>
     );
 }

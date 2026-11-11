@@ -40,7 +40,7 @@ const projects: Project[] = [
 function ProjectCard({ project, t }: { project: Project; t: (key: string) => string }) {
   return (
     <motion.div variants={blurUp} whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="w-full md:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)]">
-    <SpotlightCard className="h-full">
+    <SpotlightCard tilt={6} className="h-full">
     <div className="flex h-full flex-col p-6">
 
       {/* Título */}

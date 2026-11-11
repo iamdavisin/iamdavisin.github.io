@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform, type Variants } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, type Variants } from "framer-motion";
 import { ArrowDown, FileText, Mail } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
 import { EASE, Magnetic, blurUp, staggerBox } from "../components/motion";
@@ -83,6 +83,19 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
 
+  // La foto se inclina hacia el cursor (solo con ratón)
+  const tiltX = useSpring(0, { stiffness: 120, damping: 16 });
+  const tiltY = useSpring(0, { stiffness: 120, damping: 16 });
+  const onMove = (e: React.MouseEvent) => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+    const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+    tiltY.set(dx * 24);
+    tiltX.set(-dy * 24);
+  };
+  const resetTilt = () => { tiltX.set(0); tiltY.set(0); };
+
   useEffect(() => {
     const timer = setInterval(() => setCurrent((i) => (i + 1) % profileImages.length), 4500);
     return () => clearInterval(timer);
@@ -92,15 +105,15 @@ export default function Hero() {
     "inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-(--background)/60 backdrop-blur border border-(--foreground)/[0.1] hover:border-(--foreground)/[0.25] transition-colors";
 
   return (
-    <section ref={ref} id="home" className="relative w-full min-h-[92vh] pt-32 pb-16 flex flex-col items-center justify-center px-6 scroll-mt-40">
+    <section ref={ref} id="home" onMouseMove={onMove} onMouseLeave={resetTilt} className="relative w-full min-h-[92vh] pt-32 pb-16 flex flex-col items-center justify-center px-6 scroll-mt-40">
       <motion.div style={{ y, opacity, scale }} className="flex w-full max-w-4xl flex-col items-center">
         {/* Foto con anillo de degradado giratorio */}
         <motion.div
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 160, damping: 18 }}
+          style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 800 }}
           className="relative w-40 h-40"
-          style={{ perspective: "1200px" }}
         >
           <span aria-hidden className="absolute -inset-[4px] rounded-full bg-[conic-gradient(from_0deg,#3b82f6,#22d3ee,#a78bfa,#3b82f6)] motion-safe:animate-[spin_8s_linear_infinite]" />
           <span aria-hidden className="absolute -inset-6 rounded-full bg-blue-500/25 blur-2xl" />

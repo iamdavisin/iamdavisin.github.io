@@ -3,8 +3,8 @@ import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { GraduationCap, Briefcase } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
-import { education, experience, type TimelineEntry } from "../lib/resume";
-import { Reveal, SectionHeading, blurUp, staggerBox } from "../components/motion";
+import { education, experience, skillCategories, type TimelineEntry } from "../lib/resume";
+import { CountUp, Reveal, SectionHeading, SpotlightCard, blurUp, staggerBox } from "../components/motion";
 
 /* ── Línea de tiempo que se "dibuja" según avanza el scroll ── */
 function Timeline({
@@ -88,6 +88,30 @@ export default function About() {
           <motion.p variants={blurUp} className="text-base leading-relaxed text-(--foreground)/70">
             {t("about.p2")}
           </motion.p>
+        </motion.div>
+
+        {/* Cifras */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={staggerBox(0.1)}
+          className="mb-16 grid grid-cols-3 gap-3"
+        >
+          {[
+            { value: skillCategories.reduce((n, c) => n + c.skills.length, 0), label: t("about.statTech") },
+            { value: education.length, label: t("about.statEdu") },
+            { value: experience.length, label: t("about.statExp") },
+          ].map((s) => (
+            <motion.div key={s.label} variants={blurUp}>
+              <SpotlightCard tilt={6} className="h-full">
+                <div className="flex flex-col items-center p-4 sm:p-5 text-center">
+                  <CountUp value={s.value} suffix="+" className="text-3xl sm:text-4xl font-black tabular-nums bg-linear-to-b from-(--foreground) to-(--foreground)/60 bg-clip-text text-transparent" />
+                  <span className="mt-1 text-[11px] sm:text-xs uppercase tracking-widest text-(--foreground)/60">{s.label}</span>
+                </div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

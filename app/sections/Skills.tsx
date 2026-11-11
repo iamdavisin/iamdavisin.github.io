@@ -56,7 +56,7 @@ export default function Skills() {
                         const wide = category.skills.length > 5;
                         return (
                             <motion.div key={category.titleKey} variants={blurUp} className={wide ? "md:col-span-2" : ""}>
-                                <SpotlightCard className="h-full p-6">
+                                <SpotlightCard tilt={4} className="h-full p-6">
                                     <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-blue-500">
                                         <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
                                         {t(category.titleKey)}

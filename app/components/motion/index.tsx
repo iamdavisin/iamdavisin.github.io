@@ -2,13 +2,18 @@
 /* ── Primitivas de animación reutilizables ──
    Todas respetan "reducir movimiento" gracias a <MotionConfig reducedMotion="user">
    en Providers (los desplazamientos se anulan y solo queda el fundido). */
-import { ReactNode, useRef, MouseEvent } from "react";
+import { ReactNode, useEffect, useRef, useState, MouseEvent } from "react";
+import { ArrowUp } from "lucide-react";
 import {
+    animate,
     motion,
+    useInView,
     useMotionTemplate,
     useMotionValue,
+    useMotionValueEvent,
     useScroll,
     useSpring,
+    useTransform,
     type HTMLMotionProps,
     type Variants,
 } from "framer-motion";
@@ -126,23 +131,36 @@ export function SpotlightCard({
     children,
     className = "",
     color = "59,130,246",
+    tilt = 0,
+    style,
     ...rest
-}: { children: ReactNode; className?: string; color?: string } & HTMLMotionProps<"div">) {
+}: { children: ReactNode; className?: string; color?: string; tilt?: number } & HTMLMotionProps<"div">) {
     const x = useMotionValue(-200);
     const y = useMotionValue(-200);
     const bg = useMotionTemplate`radial-gradient(240px circle at ${x}px ${y}px, rgba(${color},0.14), transparent 70%)`;
     const border = useMotionTemplate`radial-gradient(180px circle at ${x}px ${y}px, rgba(${color},0.55), transparent 70%)`;
 
+    // Inclinación 3D hacia el cursor (grados máximos = tilt)
+    const rx = useSpring(0, { stiffness: 200, damping: 20 });
+    const ry = useSpring(0, { stiffness: 200, damping: 20 });
+
     const onMove = (e: MouseEvent<HTMLDivElement>) => {
         const r = e.currentTarget.getBoundingClientRect();
-        x.set(e.clientX - r.left);
-        y.set(e.clientY - r.top);
+        const px = e.clientX - r.left;
+        const py = e.clientY - r.top;
+        x.set(px);
+        y.set(py);
+        if (tilt) {
+            ry.set(((px / r.width) - 0.5) * tilt * 2);
+            rx.set((0.5 - (py / r.height)) * tilt * 2);
+        }
     };
 
     return (
         <motion.div
             onMouseMove={onMove}
-            onMouseLeave={() => { x.set(-200); y.set(-200); }}
+            onMouseLeave={() => { x.set(-200); y.set(-200); rx.set(0); ry.set(0); }}
+            style={{ rotateX: rx, rotateY: ry, transformPerspective: 900, ...style }}
             className={`group relative rounded-2xl border border-(--foreground)/[0.08] bg-(--foreground)/[0.025] ${className}`}
             {...rest}
         >
@@ -203,5 +221,90 @@ export function ScrollProgress() {
             style={{ scaleX }}
             className="fixed inset-x-0 top-0 z-50 h-[3px] origin-left bg-linear-to-r from-blue-500 via-cyan-400 to-blue-500"
         />
+    );
+}
+
+/* Contador que sube de 0 al valor cuando entra en pantalla */
+export function CountUp({ value, suffix = "", className }: { value: number; suffix?: string; className?: string }) {
+    const ref = useRef<HTMLSpanElement>(null);
+    const inView = useInView(ref, { once: true, margin: "-40px" });
+    const mv = useMotionValue(0);
+    const rounded = useTransform(mv, (v) => Math.round(v).toString());
+
+    useEffect(() => {
+        if (!inView) return;
+        const controls = animate(mv, value, { duration: 1.6, ease: EASE });
+        return controls.stop;
+    }, [inView, mv, value]);
+
+    return (
+        <span ref={ref} className={className}>
+            <motion.span>{rounded}</motion.span>
+            {suffix}
+        </span>
+    );
+}
+
+/* Texto que se "descifra": al pasar el ratón, las letras bailan y vuelven a su sitio */
+const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/";
+export function useScramble(text: string, speed = 28) {
+    // Mientras no se anima, se muestra el texto real (así un cambio de idioma se refleja al instante)
+    const [scrambled, setScrambled] = useState<string | null>(null);
+    const out = scrambled ?? text;
+    const frame = useRef<number | null>(null);
+
+    const start = () => {
+        if (frame.current) clearInterval(frame.current);
+        let i = 0;
+        frame.current = window.setInterval(() => {
+            setScrambled(
+                text
+                    .split("")
+                    .map((ch, idx) => {
+                        if (ch === " " || ch === "." || ch === "@") return ch;
+                        if (idx < i) return ch;
+                        return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+                    })
+                    .join("")
+            );
+            i += 1;
+            if (i > text.length) { clearInterval(frame.current!); frame.current = null; setScrambled(null); }
+        }, speed);
+    };
+
+    useEffect(() => () => { if (frame.current) clearInterval(frame.current); }, []);
+    return { out, start };
+}
+
+/* Botón flotante "volver arriba" con anillo de progreso */
+export function BackToTop({ label }: { label: string }) {
+    const { scrollY, scrollYProgress } = useScroll();
+    const [visible, setVisible] = useState(false);
+    useMotionValueEvent(scrollY, "change", (v) => setVisible(v > 600));
+    const dash = useTransform(scrollYProgress, [0, 1], [113, 0]); // 2π·18 ≈ 113
+
+    return (
+        <motion.button
+            type="button"
+            aria-label={label}
+            title={label}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            initial={false}
+            animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.6, pointerEvents: visible ? "auto" : "none" }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            className="print:hidden fixed bottom-6 right-6 z-40 grid h-12 w-12 place-items-center rounded-full border border-(--foreground)/[0.12] bg-(--background)/70 backdrop-blur-md shadow-lg"
+        >
+            <svg aria-hidden className="absolute inset-0 -rotate-90" viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="18" fill="none" strokeWidth="2" className="stroke-(--foreground)/10" />
+                <motion.circle
+                    cx="20" cy="20" r="18" fill="none" strokeWidth="2" strokeLinecap="round"
+                    className="stroke-blue-500"
+                    strokeDasharray="113"
+                    style={{ strokeDashoffset: dash }}
+                />
+            </svg>
+            <ArrowUp size={18} />
+        </motion.button>
     );
 }

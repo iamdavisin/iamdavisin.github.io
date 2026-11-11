@@ -27,7 +27,9 @@
         "ctaCv": "Ver CV"
     },
     "footer": {
-        "text": "Creado con ❤️ por"
+        "text": "Creado con ❤️ por",
+        "built": "Hecho con Next.js, Tailwind y Framer Motion",
+        "rights": "Todos los derechos reservados"
     },
     "skills": {
         "title": "Habilidades",
@@ -72,7 +74,10 @@
         "exp2_desc": "Programé funcionalidades en Java y Spring Boot, resolví bugs críticos. Tecnologías: Java, Spring Boot.",
         "exp3_title": "Soporte IT",
         "exp3_place": "Limcamar",
-        "exp3_date": "Jul 2026 - Actualidad"
+        "exp3_date": "Jul 2026 - Actualidad",
+        "statTech": "Tecnologías",
+        "statEdu": "Titulaciones",
+        "statExp": "Experiencias"
     },
     "projects": {
         "title": "Proyectos",
@@ -96,7 +101,9 @@
         "close": "Cerrar",
         "changeTheme": "Cambiar tema",
         "changeLanguage": "Cambiar idioma",
-        "nav": "Navegación principal"
+        "nav": "Navegación principal",
+        "backToTop": "Volver arriba",
+        "skip": "Saltar al contenido"
     },
     "notFound": {
         "title": "Página no encontrada",

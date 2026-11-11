@@ -4,12 +4,13 @@ import { motion } from "framer-motion";
 import { Mail, Copy, Check } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
 import { EMAIL, socials } from "../lib/socials";
-import { Magnetic, SectionHeading, SpotlightCard, blurUp, staggerBox } from "../components/motion";
+import { Magnetic, SectionHeading, SpotlightCard, blurUp, staggerBox, useScramble } from "../components/motion";
 
 /* ── Componente principal ── */
 export default function Contact() {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
+  const { out: scrambledEmail, start: scramble } = useScramble(EMAIL);
 
   const copyEmail = async () => {
     try {
@@ -36,12 +37,19 @@ export default function Contact() {
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
         >
-        <SpotlightCard>
+        <SpotlightCard tilt={3}>
         <motion.div
           variants={staggerBox(0.1, 0.2)}
           className="flex flex-col items-center gap-5 p-8 sm:p-10"
         >
-          <motion.span variants={blurUp} className="font-mono text-lg sm:text-2xl break-all text-center bg-linear-to-r from-(--foreground) to-(--foreground)/60 bg-clip-text text-transparent">{EMAIL}</motion.span>
+          <motion.span
+            variants={blurUp}
+            onMouseEnter={scramble}
+            aria-label={EMAIL}
+            className="font-mono text-lg sm:text-2xl break-all text-center bg-linear-to-r from-(--foreground) to-(--foreground)/60 bg-clip-text text-transparent cursor-default"
+          >
+            {scrambledEmail}
+          </motion.span>
 
           <motion.div variants={blurUp} className="flex flex-wrap justify-center gap-3">
             <Magnetic>

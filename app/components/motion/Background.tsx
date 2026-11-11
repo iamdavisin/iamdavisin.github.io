@@ -20,6 +20,8 @@ export default function Background() {
 
     return (
         <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden print:hidden">
+            {/* Ruido */}
+            <div className="bg-noise absolute inset-0 opacity-[0.04] mix-blend-overlay" />
             {/* Rejilla de puntos */}
             <div className="bg-dots absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_75%)]" />
             {/* Auroras */}

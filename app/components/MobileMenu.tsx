@@ -60,12 +60,18 @@ export default function MobileMenu({ isOpen, onClose, items, activeSection }: Mo
               </div>
 
               {/* Links */}
-              <div className="flex flex-col gap-3 overflow-y-auto grow">
+              <motion.div
+                initial="hidden"
+                animate="show"
+                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.15 } } }}
+                className="flex flex-col gap-3 overflow-y-auto grow"
+              >
                 {items.map((item) => {
                   const isActive = activeSection === item.href.replace("#", "");
 
                   return (
-                    <a
+                    <motion.a
+                      variants={{ hidden: { opacity: 0, x: -24 }, show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } }}
                       key={item.href}
                       href={item.href}
                       aria-current={isActive ? "location" : undefined}
@@ -81,10 +87,10 @@ export default function MobileMenu({ isOpen, onClose, items, activeSection }: Mo
                     >
                       <span className="text-xl">{item.name}</span>
                       {isActive && <ChevronRight size={20} />}
-                    </a>
+                    </motion.a>
                   );
                 })}
-              </div>
+              </motion.div>
 
             </div>
           </motion.div>
