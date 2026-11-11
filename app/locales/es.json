@@ -75,9 +75,9 @@
         "exp3_title": "Soporte IT",
         "exp3_place": "Limcamar",
         "exp3_date": "Jul 2026 - Actualidad",
-        "statTech": "Tecnologías",
         "statEdu": "Titulaciones",
-        "statExp": "Experiencias"
+        "statYear": "Año de experiencia",
+        "statYears": "Años de experiencia"
     },
     "projects": {
         "title": "Proyectos",

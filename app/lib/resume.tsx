@@ -42,22 +42,38 @@ export const skillCategories: SkillCategory[] = [
     },
 ];
 
-export type TimelineEntry = { titleKey: string; placeKey: string; dateKey: string; descKey?: string };
+/* start/end en formato "AAAA-MM"; sin end = en curso. Se usan para calcular las cifras. */
+export type TimelineEntry = { titleKey: string; placeKey: string; dateKey: string; descKey?: string; start: string; end?: string };
 
 export const education: TimelineEntry[] = [
-    { titleKey: "about.edu1_title", placeKey: "about.edu1_place", dateKey: "about.edu1_date" },
-    { titleKey: "about.edu2_title", placeKey: "about.edu2_place", dateKey: "about.edu2_date" },
-    { titleKey: "about.edu3_title", placeKey: "about.edu3_place", dateKey: "about.edu3_date" },
-    { titleKey: "about.edu4_title", placeKey: "about.edu4_place", dateKey: "about.edu4_date" },
+    { titleKey: "about.edu1_title", placeKey: "about.edu1_place", dateKey: "about.edu1_date", start: "2025-09" },
+    { titleKey: "about.edu2_title", placeKey: "about.edu2_place", dateKey: "about.edu2_date", start: "2023-09", end: "2024-06" },
+    { titleKey: "about.edu3_title", placeKey: "about.edu3_place", dateKey: "about.edu3_date", start: "2021-09", end: "2023-06" },
+    { titleKey: "about.edu4_title", placeKey: "about.edu4_place", dateKey: "about.edu4_date", start: "2019-09", end: "2021-06" },
 ];
 
 export const experience: TimelineEntry[] = [
-    { titleKey: "about.exp3_title", placeKey: "about.exp3_place", dateKey: "about.exp3_date" },
-    { titleKey: "about.exp1_title", placeKey: "about.exp1_place", dateKey: "about.exp1_date", descKey: "about.exp1_desc" },
-    { titleKey: "about.exp2_title", placeKey: "about.exp2_place", dateKey: "about.exp2_date", descKey: "about.exp2_desc" },
+    { titleKey: "about.exp3_title", placeKey: "about.exp3_place", dateKey: "about.exp3_date", start: "2026-07" },
+    { titleKey: "about.exp1_title", placeKey: "about.exp1_place", dateKey: "about.exp1_date", descKey: "about.exp1_desc", start: "2024-03", end: "2024-06" },
+    { titleKey: "about.exp2_title", placeKey: "about.exp2_place", dateKey: "about.exp2_date", descKey: "about.exp2_desc", start: "2023-03", end: "2023-06" },
 ];
 
 export const languages = [
     { nameKey: "cv.spanish", levelKey: "cv.spanishLevel" },
     { nameKey: "cv.english", levelKey: "cv.englishLevel" },
 ];
+
+/* Meses trabajados en total (ambos meses incluidos; lo que está en curso cuenta hasta hoy) */
+function monthsBetween(start: string, end: string | undefined, now: Date) {
+    const [sy, sm] = start.split("-").map(Number);
+    const [ey, em] = end ? end.split("-").map(Number) : [now.getFullYear(), now.getMonth() + 1];
+    return Math.max(0, (ey - sy) * 12 + (em - sm) + 1);
+}
+
+export function yearsOfExperience(now = new Date()) {
+    const months = experience.reduce((n, e) => n + monthsBetween(e.start, e.end, now), 0);
+    return Math.max(1, Math.floor(months / 12));
+}
+
+/* Titulaciones terminadas (las que están en curso no cuentan) */
+export const completedDegrees = education.filter((e) => e.end).length;
