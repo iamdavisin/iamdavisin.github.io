@@ -100,7 +100,9 @@ button:hover {
 .enter-up, .enter-blur, .enter-letter, .enter-pop, .enter-fade, .page-enter {
   animation-duration: 0.7s;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  animation-fill-mode: both;
+  /* backwards (no both): al terminar no queda ningún transform residual,
+     que rompería los elementos position:fixed (navbar, botón de subir) */
+  animation-fill-mode: backwards;
   animation-delay: var(--d, 0s);
 }
 .enter-up { animation-name: enter-up; }

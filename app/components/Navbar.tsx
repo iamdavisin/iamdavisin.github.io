@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Menu } from "lucide-react";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import { ScrollProgress } from "./motion";
 import LangSwitcher from "./LangSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -13,14 +13,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-
-  // Se esconde al bajar y reaparece al subir
-  const { scrollY } = useScroll();
-  useMotionValueEvent(scrollY, "change", (y) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setHidden(y > prev && y > 300 && !isMobileMenuOpen);
-  });
 
   // Referencia para medir la posición real del Navbar
   const navRef = useRef<HTMLDivElement>(null);
@@ -81,10 +73,8 @@ export default function Navbar() {
     <>
       <ScrollProgress />
       <div ref={navRef} className="relative h-18 md:h-20 w-full">
-        <motion.div
-          animate={{ y: hidden && isScrolled ? -120 : 0 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className={`z-40 transition-[padding] duration-500 ${isScrolled ? "fixed top-0 left-0 right-0 flex justify-center pt-4" : "absolute inset-0 w-full"}`}
+        <div
+          className={`z-40 transition-all duration-500 ${isScrolled ? "fixed top-0 left-0 right-0 flex justify-center pt-4" : "absolute inset-0 w-full"}`}
         >
           <nav aria-label={t("a11y.nav")} className={`flex items-center justify-between transition-all duration-500 mx-auto ${isScrolled ? "w-[90%] max-w-4xl rounded-full border border-zinc-500/20 bg-(--background)/70 backdrop-blur-xl shadow-xl shadow-black/5 px-4 py-2" : "w-full border-y border-zinc-500/10 bg-(--background)/60 backdrop-blur-md px-4 py-4 lg:px-20"}`}>
 
@@ -151,7 +141,7 @@ export default function Navbar() {
               <ThemeSwitcher />
             </div>
           </nav>
-        </motion.div>
+        </div>
       </div>
 
       <MobileMenu

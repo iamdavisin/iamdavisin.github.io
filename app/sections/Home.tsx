@@ -145,8 +145,11 @@ export default function Hero() {
         <LetterReveal text={t("home.title")} />
 
         <div className="flex flex-col items-center">
-          <p style={{ "--d": "0.9s" } as React.CSSProperties} className="enter-up mt-4 text-xs md:text-sm font-bold uppercase tracking-[0.3em] bg-linear-to-r from-blue-500 via-cyan-400 to-blue-500 bg-[length:200%_auto] bg-clip-text text-transparent motion-safe:animate-[shine_4s_linear_infinite]">
-            {t("home.subtitle")}
+          {/* Entrada en el contenedor y brillo en el texto: dos animaciones en elementos distintos */}
+          <p style={{ "--d": "0.9s" } as React.CSSProperties} className="enter-up mt-4 text-xs md:text-sm font-bold uppercase tracking-[0.3em]">
+            <span className="bg-linear-to-r from-blue-500 via-cyan-400 to-blue-500 bg-[length:200%_auto] bg-clip-text text-transparent motion-safe:animate-[shine_4s_linear_infinite]">
+              {t("home.subtitle")}
+            </span>
           </p>
 
           <p style={{ "--d": "0.3s" } as React.CSSProperties} className="enter-blur mt-5 max-w-md text-center text-base md:text-lg text-(--foreground)/70">
