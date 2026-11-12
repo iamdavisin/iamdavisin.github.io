@@ -72,6 +72,55 @@ button:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ── Animaciones de entrada en CSS ──
+   Arrancan en cuanto llega el HTML, sin esperar al JavaScript (mejor LCP en móvil).
+   El retraso de cada elemento se pasa con la variable --d. */
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(14px); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes enter-letter {
+  from { opacity: 0; transform: translateY(0.5em) rotateX(-70deg); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes enter-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  70% { transform: scale(1.04); }
+  to { opacity: 1; transform: none; }
+}
+/* Igual que enter-up pero parte visible: así cuenta como contenido pintado para el LCP */
+@keyframes enter-blur {
+  from { opacity: 0.35; transform: translateY(10px); filter: blur(10px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes enter-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.enter-up, .enter-blur, .enter-letter, .enter-pop, .enter-fade, .page-enter {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  animation-delay: var(--d, 0s);
+}
+.enter-up { animation-name: enter-up; }
+.enter-blur { animation-name: enter-blur; animation-duration: 0.9s; }
+.enter-letter { animation-name: enter-letter; }
+.enter-pop { animation-name: enter-pop; animation-duration: 0.8s; }
+.enter-fade { animation-name: enter-fade; animation-duration: 1s; }
+/* La página nunca parte de opacidad 0: así el navegador puede medir el LCP */
+@keyframes page-enter {
+  from { opacity: 0.4; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.page-enter { animation-name: page-enter; animation-duration: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-up, .enter-letter, .enter-pop { animation-name: enter-fade; }
+  .page-enter { animation: none; }
+  .enter-blur { animation: none; }
+}
+
 /* ── Fondo animado ── */
 .bg-dots {
   background-image: radial-gradient(color-mix(in srgb, var(--foreground) 14%, transparent) 1px, transparent 1px);

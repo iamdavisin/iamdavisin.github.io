@@ -1,19 +1,5 @@
-"use client";
-import { motion } from "framer-motion";
-
-/* Transición suave al cambiar de página (/, /projects, /cv) */
+/* Transición suave al cambiar de página (/, /projects, /cv).
+   En CSS para que el contenido se vea sin esperar al JavaScript. */
 export default function Template({ children }: { children: React.ReactNode }) {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-            animate={{
-                opacity: 1, y: 0, filter: "blur(0px)",
-                // Sin filter/transform residuales: romperían los elementos position:fixed
-                transitionEnd: { filter: "none", transform: "none" },
-            }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
-            {children}
-        </motion.div>
-    );
+    return <div className="page-enter">{children}</div>;
 }

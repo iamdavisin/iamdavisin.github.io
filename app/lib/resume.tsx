@@ -4,8 +4,13 @@
 import { FaJava, FaReact, FaHtml5, FaCss3Alt, FaGitAlt, FaDocker, FaDatabase, FaAngular } from "react-icons/fa";
 import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiSpring, SiPostgresql, SiClaude } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
+import { FaLinux, FaWindows } from "react-icons/fa";
+import { Network } from "lucide-react";
 
-export type Skill = { name: string; icon: React.ReactNode; color: string };
+/* nameKey: clave de traducción para nombres que cambian según el idioma */
+export type Skill = { name: string; nameKey?: string; icon: React.ReactNode; color: string };
+
+export const skillName = (s: Skill, t: (k: string) => string) => (s.nameKey ? t(s.nameKey) : s.name);
 export type SkillCategory = { titleKey: string; skills: Skill[] };
 
 export const skillCategories: SkillCategory[] = [
@@ -40,6 +45,14 @@ export const skillCategories: SkillCategory[] = [
             { name: "Claude", icon: <SiClaude />, color: "#D97757" },
         ],
     },
+    {
+        titleKey: "skills.systems",
+        skills: [
+            { name: "Linux", icon: <FaLinux />, color: "#FCC624" },
+            { name: "Windows", icon: <FaWindows />, color: "#0078D4" },
+            { name: "Redes", nameKey: "skills.networking", icon: <Network size="1em" />, color: "#14B8A6" },
+        ],
+    },
 ];
 
 /* start/end en formato "AAAA-MM"; sin end = en curso. Se usan para calcular las cifras. */
@@ -53,7 +66,7 @@ export const education: TimelineEntry[] = [
 ];
 
 export const experience: TimelineEntry[] = [
-    { titleKey: "about.exp3_title", placeKey: "about.exp3_place", dateKey: "about.exp3_date", start: "2026-07" },
+    { titleKey: "about.exp3_title", placeKey: "about.exp3_place", dateKey: "about.exp3_date", descKey: "about.exp3_desc", start: "2026-07" },
     { titleKey: "about.exp1_title", placeKey: "about.exp1_place", dateKey: "about.exp1_date", descKey: "about.exp1_desc", start: "2024-03", end: "2024-06" },
     { titleKey: "about.exp2_title", placeKey: "about.exp2_place", dateKey: "about.exp2_date", descKey: "about.exp2_desc", start: "2023-03", end: "2023-06" },
 ];
@@ -63,17 +76,3 @@ export const languages = [
     { nameKey: "cv.english", levelKey: "cv.englishLevel" },
 ];
 
-/* Meses trabajados en total (ambos meses incluidos; lo que está en curso cuenta hasta hoy) */
-function monthsBetween(start: string, end: string | undefined, now: Date) {
-    const [sy, sm] = start.split("-").map(Number);
-    const [ey, em] = end ? end.split("-").map(Number) : [now.getFullYear(), now.getMonth() + 1];
-    return Math.max(0, (ey - sy) * 12 + (em - sm) + 1);
-}
-
-export function yearsOfExperience(now = new Date()) {
-    const months = experience.reduce((n, e) => n + monthsBetween(e.start, e.end, now), 0);
-    return Math.max(1, Math.floor(months / 12));
-}
-
-/* Titulaciones terminadas (las que están en curso no cuentan) */
-export const completedDegrees = education.filter((e) => e.end).length;

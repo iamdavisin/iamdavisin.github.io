@@ -4,8 +4,7 @@
         "about": "About me",
         "skills": "Skills",
         "projects": "Projects",
-        "contact": "Contact",
-        "vlog": "Vlog"
+        "contact": "Contact"
     },
     "settings": {
         "language": "Language",
@@ -24,7 +23,7 @@
         "ctaContact": "Get in touch",
         "ctaProjects": "View projects",
         "photoAlt": "Photo of David Pérez",
-        "available": "Open to work",
+        "available": "Open to opportunities",
         "ctaCv": "View CV"
     },
     "footer": {
@@ -36,7 +35,9 @@
         "title": "Skills",
         "frontend": "Front-End",
         "backend": "Back-End",
-        "tools": "Tools"
+        "tools": "Tools",
+        "systems": "Systems",
+        "networking": "Networking"
     },
     "contact": {
         "title": "Contact",
@@ -65,20 +66,18 @@
         "edu4_title": "Microcomputer Systems and Networks",
         "edu4_place": "IES Los Albares",
         "edu4_date": "2019 - 2021",
-        "exp1_title": "Software Developer",
+        "exp1_title": "Software Development Intern",
         "exp1_place": "NTT DATA",
         "exp1_date": "Mar 2024 - Jun 2024",
         "exp1_desc": "Optimized PL/SQL queries and wrote technical documentation. Technologies: PL/SQL, Oracle.",
-        "exp2_title": "Software Developer",
+        "exp2_title": "Software Development Intern",
         "exp2_place": "MetaEnlace",
         "exp2_date": "Mar 2023 - Jun 2023",
         "exp2_desc": "Developed features in Java and Spring Boot, resolved critical bugs. Technologies: Java, Spring Boot.",
         "exp3_title": "IT Support",
         "exp3_place": "Limcamar",
         "exp3_date": "Jul 2026 - Present",
-        "statEdu": "Degrees",
-        "statYear": "Year of experience",
-        "statYears": "Years of experience"
+        "exp3_desc": "Troubleshooting hardware and software issues, maintaining equipment and supporting users."
     },
     "projects": {
         "title": "Projects",
@@ -124,18 +123,5 @@
         "spanishLevel": "Native",
         "english": "English",
         "englishLevel": "Intermediate (B2)"
-    },
-    "vlog": {
-        "title": "Beyond the code",
-        "subtitle": "A glimpse of what I do when I'm not coding.",
-        "all": "All",
-        "hint": "Drag to see more · Tap to open",
-        "placeholder": "Your photo or video here",
-        "prev": "Previous",
-        "next": "Next",
-        "pause": "Pause",
-        "play": "Resume",
-        "mute": "Mute",
-        "unmute": "Unmute"
     }
 }

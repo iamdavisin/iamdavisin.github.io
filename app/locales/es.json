@@ -4,8 +4,7 @@
         "about": "Sobre mí",
         "skills": "Habilidades",
         "projects": "Proyectos",
-        "contact": "Contacto",
-        "vlog": "Vlog"
+        "contact": "Contacto"
     },
     "settings": {
         "language": "Idioma",
@@ -24,7 +23,7 @@
         "ctaContact": "Contactar",
         "ctaProjects": "Ver proyectos",
         "photoAlt": "Foto de David Pérez",
-        "available": "Disponible para trabajar",
+        "available": "Abierto a oportunidades",
         "ctaCv": "Ver CV"
     },
     "footer": {
@@ -36,7 +35,9 @@
         "title": "Habilidades",
         "frontend": "Front-End",
         "backend": "Back-End",
-        "tools": "Herramientas"
+        "tools": "Herramientas",
+        "systems": "Sistemas",
+        "networking": "Redes"
     },
     "contact": {
         "title": "Contacto",
@@ -65,20 +66,18 @@
         "edu4_title": "Técnico en Sistemas Microinformáticos y Redes",
         "edu4_place": "IES Los Albares",
         "edu4_date": "2019 - 2021",
-        "exp1_title": "Desarrollador de Software",
+        "exp1_title": "Prácticas de desarrollo de software",
         "exp1_place": "NTT DATA",
         "exp1_date": "Mar 2024 - Jun 2024",
         "exp1_desc": "Optimicé consultas PL/SQL y redacté documentación técnica. Tecnologías: PL/SQL, Oracle.",
-        "exp2_title": "Desarrollador de Software",
+        "exp2_title": "Prácticas de desarrollo de software",
         "exp2_place": "MetaEnlace",
         "exp2_date": "Mar 2023 - Jun 2023",
         "exp2_desc": "Programé funcionalidades en Java y Spring Boot, resolví bugs críticos. Tecnologías: Java, Spring Boot.",
         "exp3_title": "Soporte IT",
         "exp3_place": "Limcamar",
         "exp3_date": "Jul 2026 - Actualidad",
-        "statEdu": "Titulaciones",
-        "statYear": "Año de experiencia",
-        "statYears": "Años de experiencia"
+        "exp3_desc": "Resolución de incidencias de hardware y software, mantenimiento de equipos y soporte a usuarios."
     },
     "projects": {
         "title": "Proyectos",
@@ -124,18 +123,5 @@
         "spanishLevel": "Nativo",
         "english": "Inglés",
         "englishLevel": "Intermedio (B2)"
-    },
-    "vlog": {
-        "title": "Fuera del código",
-        "subtitle": "Un vistazo a lo que hago cuando no estoy programando.",
-        "all": "Todo",
-        "hint": "Arrastra para ver más · Toca para abrir",
-        "placeholder": "Tu foto o vídeo aquí",
-        "prev": "Anterior",
-        "next": "Siguiente",
-        "pause": "Pausar",
-        "play": "Reanudar",
-        "mute": "Silenciar",
-        "unmute": "Activar sonido"
     }
 }

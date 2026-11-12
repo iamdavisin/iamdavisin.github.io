@@ -1,7 +1,7 @@
 "use client";
 import { motion, type Variants } from "framer-motion";
 import { useTranslation } from "../components/LanguageProvider";
-import { skillCategories, type Skill } from "../lib/resume";
+import { skillCategories, skillName, type Skill } from "../lib/resume";
 import { SectionHeading, SpotlightCard, blurUp, staggerBox } from "../components/motion";
 
 const tile: Variants = {
@@ -11,6 +11,7 @@ const tile: Variants = {
 
 /* ── Icono de tecnología: se ilumina con su propio color ── */
 function SkillTile({ skill }: { skill: Skill }) {
+    const { t } = useTranslation();
     return (
         <motion.div
             variants={tile}
@@ -29,7 +30,7 @@ function SkillTile({ skill }: { skill: Skill }) {
                 {skill.icon}
             </span>
             <span className="relative text-xs font-medium text-center leading-tight text-(--foreground)/75 group-hover/tile:text-(--foreground) transition-colors">
-                {skill.name}
+                {skillName(skill, t)}
             </span>
         </motion.div>
     );

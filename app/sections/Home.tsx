@@ -5,10 +5,10 @@ import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, type Variants } from "framer-motion";
 import { ArrowDown, FileText, Mail } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
-import { EASE, Magnetic, blurUp, staggerBox } from "../components/motion";
-import { skillCategories } from "../lib/resume";
+import { EASE, Magnetic } from "../components/motion";
+import { skillCategories, skillName } from "../lib/resume";
 
-const profileImages = ["/profile.jpg", "/profile2.png"];
+const profileImages = ["/profile.jpg", "/profile2.jpg"];
 
 /* Giro 3D entre las dos fotos */
 const flip: Variants = {
@@ -19,45 +19,42 @@ const flip: Variants = {
 
 /* Nombre letra a letra */
 function LetterReveal({ text }: { text: string }) {
+  let n = 0; // índice global de letra para escalonar el retraso
   return (
-    <motion.h1
+    <h1
       key={text}
       aria-label={text}
-      initial="hidden"
-      animate="show"
-      variants={staggerBox(0.035, 0.35)}
+      style={{ perspective: "600px" }}
       className="mt-5 text-center text-[2.6rem] sm:text-6xl md:text-7xl font-black tracking-tighter leading-[1.05]"
     >
       {text.split(" ").map((word, wi) => (
         <span key={wi} aria-hidden className="inline-block whitespace-nowrap">
           {word.split("").map((ch, ci) => (
-            <motion.span
+            <span
               key={ci}
-              className="inline-block bg-linear-to-b from-(--foreground) to-(--foreground)/60 bg-clip-text text-transparent"
-              variants={{
-                hidden: { opacity: 0, y: "0.5em", rotateX: -70, filter: "blur(6px)" },
-                show: { opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
-              }}
+              className="enter-letter inline-block bg-linear-to-b from-(--foreground) to-(--foreground)/60 bg-clip-text text-transparent"
+              style={{ "--d": `${0.35 + n++ * 0.035}s` } as React.CSSProperties}
             >
               {ch}
-            </motion.span>
+            </span>
           ))}
           {wi < text.split(" ").length - 1 && <span className="inline-block">&nbsp;</span>}
         </span>
       ))}
-    </motion.h1>
+    </h1>
   );
 }
 
 /* Cinta infinita con las tecnologías */
 function TechMarquee() {
+  const { t } = useTranslation();
   const skills = skillCategories.flatMap((c) => c.skills);
   const row = (hidden: boolean) => (
     <div className="flex shrink-0 items-center gap-10 pr-10" aria-hidden={hidden}>
       {skills.map((s) => (
         <span key={s.name} className="inline-flex items-center gap-2 text-sm font-medium text-(--foreground)/60 whitespace-nowrap">
           <span className="text-xl" style={{ color: s.color }}>{s.icon}</span>
-          {s.name}
+          {skillName(s, t)}
         </span>
       ))}
     </div>
@@ -108,10 +105,8 @@ export default function Hero() {
     <section ref={ref} id="home" onMouseMove={onMove} onMouseLeave={resetTilt} className="relative w-full min-h-[92vh] pt-32 pb-16 flex flex-col items-center justify-center px-6 scroll-mt-40">
       <motion.div style={{ y, opacity, scale }} className="flex w-full max-w-4xl flex-col items-center">
         {/* Foto con anillo de degradado giratorio */}
+        <div className="enter-pop">
         <motion.div
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", stiffness: 160, damping: 18 }}
           style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 800 }}
           className="relative w-40 h-40"
         >
@@ -133,33 +128,32 @@ export default function Hero() {
             </motion.div>
           </AnimatePresence>
         </motion.div>
+        </div>
 
         {/* Disponible */}
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.6, ease: EASE }}
-          className="mt-8 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400 backdrop-blur"
+        <span
+          style={{ "--d": "0.25s" } as React.CSSProperties}
+          className="enter-up mt-8 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400 backdrop-blur"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 motion-safe:animate-ping" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
           </span>
           {t("home.available")}
-        </motion.span>
+        </span>
 
         <LetterReveal text={t("home.title")} />
 
-        <motion.div initial="hidden" animate="show" variants={staggerBox(0.12, 0.9)} className="flex flex-col items-center">
-          <motion.p variants={blurUp} className="mt-4 text-xs md:text-sm font-bold uppercase tracking-[0.3em] bg-linear-to-r from-blue-500 via-cyan-400 to-blue-500 bg-[length:200%_auto] bg-clip-text text-transparent motion-safe:animate-[shine_4s_linear_infinite]">
+        <div className="flex flex-col items-center">
+          <p style={{ "--d": "0.9s" } as React.CSSProperties} className="enter-up mt-4 text-xs md:text-sm font-bold uppercase tracking-[0.3em] bg-linear-to-r from-blue-500 via-cyan-400 to-blue-500 bg-[length:200%_auto] bg-clip-text text-transparent motion-safe:animate-[shine_4s_linear_infinite]">
             {t("home.subtitle")}
-          </motion.p>
+          </p>
 
-          <motion.p variants={blurUp} className="mt-5 max-w-md text-center text-base md:text-lg text-(--foreground)/70">
+          <p style={{ "--d": "0.3s" } as React.CSSProperties} className="enter-blur mt-5 max-w-md text-center text-base md:text-lg text-(--foreground)/70">
             {t("home.tagline")}
-          </motion.p>
+          </p>
 
-          <motion.div variants={blurUp} className="mt-9 flex flex-wrap justify-center gap-3">
+          <div style={{ "--d": "1.14s" } as React.CSSProperties} className="enter-up mt-9 flex flex-wrap justify-center gap-3">
             <Magnetic>
               <a
                 href="#contact"
@@ -182,17 +176,12 @@ export default function Hero() {
                 {t("home.ctaCv")}
               </Link>
             </Magnetic>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.4, duration: 1 }}
-          className="flex w-full justify-center"
-        >
+        <div style={{ "--d": "1.4s" } as React.CSSProperties} className="enter-fade flex w-full justify-center">
           <TechMarquee />
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Indicador de scroll */}

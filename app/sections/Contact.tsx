@@ -28,7 +28,7 @@ export default function Contact() {
       className="min-h-[70vh] py-20 px-6 flex flex-col items-center justify-center scroll-mt-8"
     >
       <div className="max-w-xl w-full">
-        <SectionHeading index="05" title={t("contact.title")} subtitle={t("contact.subtitle")} />
+        <SectionHeading index="04" title={t("contact.title")} subtitle={t("contact.subtitle")} />
 
         {/* Tarjeta de correo */}
         <motion.div

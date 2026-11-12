@@ -3,8 +3,8 @@ import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { GraduationCap, Briefcase } from "lucide-react";
 import { useTranslation } from "../components/LanguageProvider";
-import { completedDegrees, education, experience, yearsOfExperience, type TimelineEntry } from "../lib/resume";
-import { CountUp, Reveal, SectionHeading, SpotlightCard, blurUp, staggerBox } from "../components/motion";
+import { education, experience, type TimelineEntry } from "../lib/resume";
+import { Reveal, SectionHeading, blurUp, staggerBox } from "../components/motion";
 
 /* ── Línea de tiempo que se "dibuja" según avanza el scroll ── */
 function Timeline({
@@ -68,7 +68,6 @@ function Timeline({
 /* ── Componente principal ── */
 export default function About() {
   const { t } = useTranslation();
-  const years = yearsOfExperience();
 
   return (
     <section id="about" className="min-h-screen py-24 px-6 flex flex-col items-center justify-center scroll-mt-8">
@@ -91,28 +90,6 @@ export default function About() {
           </motion.p>
         </motion.div>
 
-        {/* Cifras */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerBox(0.1)}
-          className="mx-auto mb-16 grid max-w-md grid-cols-2 gap-3"
-        >
-          {[
-            { value: years, label: years === 1 ? t("about.statYear") : t("about.statYears") },
-            { value: completedDegrees, label: t("about.statEdu") },
-          ].map((s) => (
-            <motion.div key={s.label} variants={blurUp}>
-              <SpotlightCard tilt={6} className="h-full">
-                <div className="flex flex-col items-center p-4 sm:p-5 text-center">
-                  <CountUp value={s.value} className="text-3xl sm:text-4xl font-black tabular-nums bg-linear-to-b from-(--foreground) to-(--foreground)/60 bg-clip-text text-transparent" />
-                  <span className="mt-1 text-[11px] sm:text-xs uppercase tracking-widest text-(--foreground)/60">{s.label}</span>
-                </div>
-              </SpotlightCard>
-            </motion.div>
-          ))}
-        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <Timeline icon={<GraduationCap size={18} />} title={t("about.education")} items={education} t={t} />

@@ -83,9 +83,9 @@ function RepoCard({
             {/* Cabecera: icono + nombre */}
             <div className="flex items-start gap-3 mb-3">
                 <FaGithub className="text-lg mt-0.5 text-(--foreground)/60 shrink-0" />
-                <h3 className="text-base font-bold text-(--foreground)/90 group-hover:text-(--foreground) transition-colors leading-snug">
+                <h2 className="text-base font-bold text-(--foreground)/90 group-hover:text-(--foreground) transition-colors leading-snug">
                     {formatRepoName(repo.name)}
-                </h3>
+                </h2>
             </div>
 
             {/* Descripción */}
@@ -126,52 +126,32 @@ export default function ProjectsClient({ repos }: { repos: GitHubRepo[] }) {
     const { t, locale } = useTranslation();
 
     return (
-        <main className="min-h-screen py-20 px-6">
+        <main id="main" className="min-h-screen py-20 px-6">
             <div className="max-w-5xl mx-auto">
                 {/* Enlace de volver */}
-                <motion.div
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="mb-12"
-                >
+                <div className="enter-up mb-12">
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-2 text-sm text-(--foreground)/50
+                        className="inline-flex items-center gap-2 text-sm text-(--foreground)/60
                             hover:text-(--foreground) transition-colors duration-300"
                     >
                         <ArrowLeft size={16} />
                         {t("projects.backHome")}
                     </Link>
-                </motion.div>
+                </div>
 
                 {/* Título */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-4xl font-bold mb-4"
-                >
+                <h1 className="enter-blur text-4xl font-bold mb-4">
                     {t("projects.allProjectsTitle")}
-                </motion.h1>
+                </h1>
 
                 {/* Subtítulo */}
-                <motion.p
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-(--foreground)/60 mb-12 max-w-lg"
-                >
+                <p style={{ "--d": "0.1s" } as React.CSSProperties} className="enter-blur text-(--foreground)/60 mb-12 max-w-lg">
                     {t("projects.allProjectsSubtitle")}
-                </motion.p>
+                </p>
 
                 {/* Contador de repositorios */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="mb-8"
-                >
+                <div style={{ "--d": "0.2s" } as React.CSSProperties} className="enter-fade mb-8">
                     <span
                         className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium
                           bg-(--foreground)/[0.04] border border-(--foreground)/[0.06] text-(--foreground)/60"
@@ -179,7 +159,7 @@ export default function ProjectsClient({ repos }: { repos: GitHubRepo[] }) {
                         <Code2 size={13} />
                         {repos.length} {t("projects.repositories")}
                     </span>
-                </motion.div>
+                </div>
 
                 {/* Cuadrícula de repositorios */}
                 {repos.length > 0 ? (

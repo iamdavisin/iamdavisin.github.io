@@ -5,7 +5,7 @@ import { ArrowLeft, Download, Globe, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useTranslation } from "../components/LanguageProvider";
 import LangSwitcher from "../components/LangSwitcher";
-import { education, experience, languages, skillCategories, type TimelineEntry } from "../lib/resume";
+import { education, experience, languages, skillCategories, skillName, type TimelineEntry } from "../lib/resume";
 import { EMAIL } from "../lib/socials";
 
 /* El CV se dibuja siempre en claro (colores fijos, sin variables del tema)
@@ -45,7 +45,7 @@ export default function CvClient() {
     const { t } = useTranslation();
 
     return (
-        <div className="cv-root min-h-screen bg-zinc-100 py-8 print:bg-white print:p-0">
+        <div id="main" className="cv-root min-h-screen bg-zinc-100 py-8 print:bg-white print:p-0">
             {/* Barra de acciones (no se imprime) */}
             <div className="print:hidden mx-auto mb-6 flex max-w-[210mm] flex-wrap items-center justify-between gap-3 px-4 text-zinc-800">
                 <Link href="/" className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-900">
@@ -62,7 +62,7 @@ export default function CvClient() {
                         {t("cv.download")}
                     </button>
                 </div>
-                <p className="w-full text-right text-xs text-zinc-500">{t("cv.hint")}</p>
+                <p className="w-full text-right text-xs text-zinc-600">{t("cv.hint")}</p>
             </div>
 
             {/* Hoja A4 */}
@@ -103,10 +103,10 @@ export default function CvClient() {
                     <aside className="space-y-6 bg-zinc-50 px-8 py-7 sm:px-6 print:bg-zinc-50">
                         <section>
                             <SectionTitle>{t("cv.contact")}</SectionTitle>
-                            <ul className="space-y-2">
+                            <ul className="space-y-0.5 print:space-y-2">
                                 {contacts.map((c) => (
                                     <li key={c.href}>
-                                        <a href={c.href} className="flex items-center gap-2 text-[10.5px] text-zinc-700 hover:text-blue-700 break-words">
+                                        <a href={c.href} className="flex min-h-6 items-center gap-2 text-[10.5px] text-zinc-700 hover:text-blue-700 break-words print:min-h-0">
                                             <span className="shrink-0 text-blue-600">{c.icon}</span>
                                             {c.label}
                                         </a>
@@ -142,7 +142,7 @@ export default function CvClient() {
                                                     className="inline-flex items-center gap-1 rounded-md border border-zinc-200 bg-white px-1.5 py-0.5 text-[10.5px] text-zinc-700"
                                                 >
                                                     <span style={{ color: s.color }} className="text-[10px]">{s.icon}</span>
-                                                    {s.name}
+                                                    {skillName(s, t)}
                                                 </span>
                                             ))}
                                         </div>

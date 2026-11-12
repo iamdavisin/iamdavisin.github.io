@@ -5,9 +5,7 @@
 import { ReactNode, useEffect, useRef, useState, MouseEvent } from "react";
 import { ArrowUp } from "lucide-react";
 import {
-    animate,
     motion,
-    useInView,
     useMotionTemplate,
     useMotionValue,
     useMotionValueEvent,
@@ -221,27 +219,6 @@ export function ScrollProgress() {
             style={{ scaleX }}
             className="fixed inset-x-0 top-0 z-50 h-[3px] origin-left bg-linear-to-r from-blue-500 via-cyan-400 to-blue-500"
         />
-    );
-}
-
-/* Contador que sube de 0 al valor cuando entra en pantalla */
-export function CountUp({ value, suffix = "", className }: { value: number; suffix?: string; className?: string }) {
-    const ref = useRef<HTMLSpanElement>(null);
-    const inView = useInView(ref, { once: true, margin: "-40px" });
-    const mv = useMotionValue(0);
-    const rounded = useTransform(mv, (v) => Math.round(v).toString());
-
-    useEffect(() => {
-        if (!inView) return;
-        const controls = animate(mv, value, { duration: 1.6, ease: EASE });
-        return controls.stop;
-    }, [inView, mv, value]);
-
-    return (
-        <span ref={ref} className={className}>
-            <motion.span>{rounded}</motion.span>
-            {suffix}
-        </span>
     );
 }
 
