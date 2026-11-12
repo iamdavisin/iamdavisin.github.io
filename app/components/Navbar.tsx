@@ -76,7 +76,7 @@ export default function Navbar() {
         <div
           className={`z-40 transition-all duration-500 ${isScrolled ? "fixed top-0 left-0 right-0 flex justify-center pt-4" : "absolute inset-0 w-full"}`}
         >
-          <nav aria-label={t("a11y.nav")} className={`flex items-center justify-between transition-all duration-500 mx-auto ${isScrolled ? "w-[90%] max-w-4xl rounded-full border border-zinc-500/20 bg-(--background)/70 backdrop-blur-xl shadow-xl shadow-black/5 px-4 py-2" : "w-full border-y border-zinc-500/10 bg-(--background)/60 backdrop-blur-md px-4 py-4 lg:px-20"}`}>
+          <nav aria-label={t("a11y.nav")} className={`flex items-center justify-between transition-all duration-500 mx-auto ${isScrolled ? "w-[90%] max-w-4xl rounded-full border border-zinc-500/20 bg-(--background)/80 backdrop-blur-md shadow-xl px-6 py-2" : "w-full border-y border-zinc-500/10 bg-(--background) px-4 py-4 lg:px-20"}`}>
 
             <div className="flex items-center gap-4">
               <button
