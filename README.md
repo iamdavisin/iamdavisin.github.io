@@ -4,6 +4,7 @@
 </p>
 
 <p align="center">
+  <a href="https://iamdavisin.github.io"><img src="https://img.shields.io/badge/Live%20Demo-iamdavisin.github.io-2563EB?style=flat-square&logo=googlechrome&logoColor=white" alt="Live Demo" /></a>
   <a href="https://github.com/iamdavisin"><img src="https://img.shields.io/badge/GitHub-iamdavisin-181717?style=flat-square&logo=github" alt="GitHub" /></a>
   <a href="https://linkedin.com/in/davidperezmi"><img src="https://img.shields.io/badge/LinkedIn-davidperezmi-0A66C2?style=flat-square&logo=linkedin" alt="LinkedIn" /></a>
 </p>
@@ -16,8 +17,11 @@
 - 🎨 **Tema oscuro / claro / sistema** — Cambio de tema fluido a través de `next-themes`
 - 🌍 **Internacionalización (i18n)** — Soporte en español e inglés con un proveedor de idioma personalizado
 - 📱 **Totalmente responsive** — Diseño mobile-first con menú móvil dedicado
-- 🎬 **Animaciones fluidas** — Transiciones de página y micro-interacciones con Framer Motion
-- 🧩 **Arquitectura modular** — Separación limpia entre páginas, componentes y locales
+- 🎬 **Animaciones fluidas** — Revelados al hacer scroll, navbar que se transforma en isla flotante, tarjetas con brillo e inclinación 3D y cambio de tema con revelado circular
+- 📄 **CV dinámico** — La página `/cv` genera el currículum en A4 con los mismos datos de la web y se descarga como PDF desde el navegador
+- 🐙 **Repos de GitHub** — `/projects` lista los repositorios públicos, obtenidos en el build
+- ♿ **Accesible y rápido** — 100 en accesibilidad, buenas prácticas y SEO en Lighthouse; respeta "reducir movimiento"
+- 🧩 **Arquitectura modular** — Separación limpia entre secciones, componentes, datos y traducciones
 
 ## 🛠️ Stack Tecnológico
 
@@ -39,6 +43,7 @@
 iamdavisin.github.io/
 ├── app/
 │   ├── components/       # Componentes de UI reutilizables
+│   │   ├── motion/        # Primitivas de animación y fondo animado
 │   │   ├── BottomSheet.tsx
 │   │   ├── Footer.tsx
 │   │   ├── LangSwitcher.tsx
@@ -47,7 +52,8 @@ iamdavisin.github.io/
 │   │   ├── Navbar.tsx
 │   │   ├── Providers.tsx
 │   │   └── ThemeSwitcher.tsx
-│   ├── lib/               # Utilidades (GitHub API, redes, hooks)
+│   ├── cv/                # Página /cv (currículum imprimible)
+│   ├── lib/               # Datos (resume.tsx: habilidades, experiencia, formación), GitHub API y hooks
 │   ├── locales/           # Archivos de traducción i18n
 │   │   ├── en.json
 │   │   └── es.json
@@ -58,10 +64,15 @@ iamdavisin.github.io/
 │   │   ├── Home.tsx
 │   │   ├── Projects.tsx
 │   │   └── Skills.tsx
+│   ├── apple-icon.tsx
 │   ├── globals.css
+│   ├── icon.svg
 │   ├── layout.tsx
 │   ├── not-found.tsx
-│   └── page.tsx
+│   ├── page.tsx
+│   ├── robots.ts
+│   ├── sitemap.ts
+│   └── template.tsx
 ├── public/
 ├── package.json
 ├── tsconfig.json
