@@ -1,0 +1,14 @@
+# Revisa cada semana si hay actualizaciones de dependencias y abre PRs automáticas
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      dependencias:
+        patterns: ["*"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

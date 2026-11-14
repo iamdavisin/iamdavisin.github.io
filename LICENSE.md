@@ -1,3 +1,13 @@
+# Licencia / License
+
+> **Código MIT, contenido reservado.** La licencia MIT se aplica únicamente al código fuente.
+> Las fotografías (`public/profile*.jpg`), los textos personales (`app/locales/*.json`) y el contenido
+> del currículum no están incluidos y conservan **todos los derechos reservados**.
+>
+> **MIT code, reserved content.** The MIT license applies only to the source code.
+> Photos (`public/profile*.jpg`), personal texts (`app/locales/*.json`) and résumé content are not
+> included and remain **all rights reserved**.
+
 # MIT License
 
 ## Copyright (c) 2026 David Pérez

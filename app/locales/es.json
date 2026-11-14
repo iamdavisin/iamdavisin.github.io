@@ -29,7 +29,8 @@
     "footer": {
         "text": "Creado con ❤️ por",
         "built": "Hecho con Next.js, Tailwind y Framer Motion",
-        "rights": "Todos los derechos reservados"
+        "rights": "Todos los derechos reservados",
+        "legal": "Aviso legal y privacidad"
     },
     "skills": {
         "title": "Habilidades",
@@ -123,5 +124,27 @@
         "spanishLevel": "Nativo",
         "english": "Inglés",
         "englishLevel": "Intermedio (B2)"
+    },
+    "legal": {
+        "title": "Aviso legal y privacidad",
+        "updated": "Última actualización: noviembre de 2026",
+        "ownerTitle": "Titular",
+        "owner": "Esta web es el portfolio personal de David Pérez Miñano. Es una web sin actividad comercial: su único fin es mostrar mi formación, experiencia y proyectos. Puedes contactar conmigo en",
+        "ipTitle": "Propiedad intelectual",
+        "ip1": "El código fuente de la web es abierto y se publica bajo licencia MIT en",
+        "ip2": "Las fotografías, los textos y el contenido del currículum son de mi autoría y conservan todos los derechos reservados: no pueden reutilizarse sin mi permiso.",
+        "ip3": "Los logotipos de tecnologías y empresas pertenecen a sus respectivos propietarios y se muestran únicamente para identificarlas.",
+        "privacyTitle": "Privacidad y cookies",
+        "privacy1": "Esta web no utiliza formularios, cookies, herramientas de analítica ni publicidad, y no recoge datos personales de quien la visita.",
+        "privacy2": "Para recordar tus preferencias, el navegador guarda localmente el idioma y el tema (claro u oscuro) que elijas. Esta información no sale de tu dispositivo y puedes borrarla en cualquier momento desde los ajustes del navegador.",
+        "privacy3": "La web está alojada en GitHub Pages (GitHub, Inc.). Como cualquier servidor, GitHub puede registrar tu dirección IP con fines técnicos y de seguridad, lo que puede implicar una transferencia de datos a EE. UU. al amparo del Marco de Privacidad de Datos UE-EE. UU. Más información en la",
+        "privacyLink": "declaración de privacidad de GitHub",
+        "emailTitle": "Si me escribes por email",
+        "email1": "Si contactas conmigo por correo electrónico, usaré tu dirección y la información que me envíes solo para responderte. No la cederé a terceros y la conservaré el tiempo necesario para atender tu mensaje.",
+        "email2": "Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo al mismo correo. Si consideras que no se han respetado, puedes presentar una reclamación ante la Agencia Española de Protección de Datos",
+        "linksTitle": "Enlaces externos",
+        "links": "La web enlaza a perfiles en GitHub y LinkedIn. Al visitarlos se aplican sus propias condiciones y políticas de privacidad.",
+        "changesTitle": "Cambios",
+        "changes": "Este texto puede actualizarse si la web cambia (por ejemplo, si se añade alguna herramienta nueva). La fecha de la última actualización figura al principio."
     }
 }

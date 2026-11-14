@@ -112,7 +112,7 @@ El despliegue a GitHub Pages es automático al hacer push a `main`.
 
 ## 📄 Licencia
 
-Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE.md).
+El código es de código abierto bajo la [Licencia MIT](LICENSE.md). Las fotografías, los textos personales y el contenido del CV no están incluidos y conservan todos los derechos reservados.
 
 ---
 

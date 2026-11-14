@@ -29,7 +29,8 @@
     "footer": {
         "text": "Made with ❤️ by",
         "built": "Built with Next.js, Tailwind and Framer Motion",
-        "rights": "All rights reserved"
+        "rights": "All rights reserved",
+        "legal": "Legal notice & privacy"
     },
     "skills": {
         "title": "Skills",
@@ -123,5 +124,27 @@
         "spanishLevel": "Native",
         "english": "English",
         "englishLevel": "Intermediate (B2)"
+    },
+    "legal": {
+        "title": "Legal notice & privacy",
+        "updated": "Last updated: November 2026",
+        "ownerTitle": "Owner",
+        "owner": "This website is the personal portfolio of David Pérez Miñano. It has no commercial activity: its only purpose is to show my education, experience and projects. You can contact me at",
+        "ipTitle": "Intellectual property",
+        "ip1": "The website's source code is open and published under the MIT license at",
+        "ip2": "Photos, texts and résumé content are my own work and all rights are reserved: they may not be reused without my permission.",
+        "ip3": "Technology and company logos belong to their respective owners and are shown only to identify them.",
+        "privacyTitle": "Privacy & cookies",
+        "privacy1": "This website does not use forms, cookies, analytics or advertising, and does not collect personal data from visitors.",
+        "privacy2": "To remember your preferences, your browser stores the language and theme (light or dark) you choose locally. This information never leaves your device and you can delete it at any time from your browser settings.",
+        "privacy3": "The website is hosted on GitHub Pages (GitHub, Inc.). Like any server, GitHub may log your IP address for technical and security purposes, which may involve a transfer of data to the US under the EU-US Data Privacy Framework. More information in",
+        "privacyLink": "GitHub's privacy statement",
+        "emailTitle": "If you email me",
+        "email1": "If you contact me by email, I will use your address and the information you send only to reply. I will not share it with third parties and will keep it only as long as needed to handle your message.",
+        "email2": "You can exercise your rights of access, rectification, erasure, objection, restriction and portability by writing to the same address. If you believe they have not been respected, you can file a complaint with the Spanish Data Protection Agency",
+        "linksTitle": "External links",
+        "links": "This website links to profiles on GitHub and LinkedIn. When you visit them, their own terms and privacy policies apply.",
+        "changesTitle": "Changes",
+        "changes": "This text may be updated if the website changes (for example, if a new tool is added). The date of the last update is shown at the top."
     }
 }

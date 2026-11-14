@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTranslation } from "./LanguageProvider";
 import { socials } from "../lib/socials";
@@ -34,8 +35,11 @@ export default function Footer() {
                     {t("footer.text")} <span className="font-bold text-blue-500">David</span>
                 </p>
 
-                <p className="text-xs text-(--foreground)/50">
-                    © {year} David Pérez Miñano · {t("footer.built")}
+                <p className="text-xs text-(--foreground)/60">
+                    © {year} David Pérez Miñano · {t("footer.built")} ·{" "}
+                    <Link href="/legal" className="underline-offset-2 hover:text-(--foreground) hover:underline">
+                        {t("footer.legal")}
+                    </Link>
                 </p>
             </Reveal>
 
